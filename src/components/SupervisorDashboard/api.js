@@ -33,7 +33,7 @@ export const fetchChatMessagesApi = async (groupId) => {
 };
 
 export const sendChatMessageApi = async (data) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/chat/send", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/chat/send`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),

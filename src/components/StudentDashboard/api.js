@@ -7,7 +7,7 @@ export const fetchChatMessagesApi = async (groupId) => {
 };
 
 export const sendChatMessageApi = async (data) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/chat/send', {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/chat/send`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
@@ -85,7 +85,7 @@ export const searchStudentsApi = async (query) => {
 };
 
 export const sendSupervisorRequestApi = async (body) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/supervisor/send-supervisor-request', {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/supervisor/send-supervisor-request`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
@@ -98,7 +98,7 @@ export const sendSupervisorRequestApi = async (body) => {
 };
 
 export const checkSimilarityApi = async (formData) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/proposal/check-similarity", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/proposal/check-similarity`, {
     method: "POST",
     body: formData,
   });
@@ -111,7 +111,7 @@ export const checkSimilarityApi = async (formData) => {
 };
 
 export const enhanceProposalApi = async (body) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/proposal/enhance", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/proposal/enhance`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -131,7 +131,7 @@ export const enhanceProposalApi = async (body) => {
 };
 
 export const submitToPecApi = async (body) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/submit-to-pec", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/submit-to-pec`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),

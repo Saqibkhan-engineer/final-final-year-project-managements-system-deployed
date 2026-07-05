@@ -103,7 +103,7 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
   const fetchCommittees = async () => {
     try {
       setLoadingCommittees(true);
-      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/all');
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/all`);
       if (res.ok) {
         const data = await res.json();
         setCommittees(data);
@@ -144,7 +144,7 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
     }
     try {
       setCreatingCommittee(true);
-      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/create', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
