@@ -81,47 +81,44 @@ export function CommitteeView({
             const burndownData = perf?.burndownData || [];
 
             return (
-              <div key={gId} className="group-card" style={{ width: '100%', maxWidth: 'none', display: 'flex', flexDirection: 'column' }}>
-                <div className="group-card-header" style={{ borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem', marginBottom: '1rem' }}>
-                  <div style={{ flex: 1 }}>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontSize: '1.5rem' }}>📋</span> {g.proposal?.title || `Group #${gId}`}
+              <div key={gId} className="group-card">
+                <div className="group-card-header">
+                  <div>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0, color: '#1e293b' }}>
+                      🎓 {g.proposal?.title || g.name || `Group #${gId}`}
                     </h3>
-                    <div style={{ display: 'flex', gap: '10px', marginTop: '8px', flexWrap: 'wrap' }}>
-                      <span className="group-badge" style={{ background: '#e0e7ff', color: '#4338ca', fontSize: '0.75rem', fontWeight: 700, padding: '4px 10px', borderRadius: '100px' }}>To Evaluate</span>
-                      {g.proposal?.domain && (
-                        <span style={{ fontSize: '0.75rem', fontWeight: 700, background: '#eff6ff', color: '#2563eb', border: '1px solid #bfdbfe', padding: '3px 10px', borderRadius: '100px' }}>🏷️ {g.proposal.domain}</span>
-                      )}
-                    </div>
+                    {g.proposal?.domain && (
+                      <span style={{
+                        fontSize: '0.65rem', fontWeight: 700,
+                        background: '#eff6ff', color: '#2563eb',
+                        border: '1px solid #bfdbfe',
+                        padding: '1px 7px', borderRadius: '10px',
+                        display: 'inline-block', marginTop: '3px',
+                      }}>🏷️ {g.proposal.domain}</span>
+                    )}
                   </div>
-                  <button 
-                    className="btn-primary" 
-                    onClick={() => handleOpenEvaluate(gId, 'committee')}
-                    style={{ padding: '0.75rem 1.5rem', fontSize: '0.9rem', borderRadius: '8px', boxShadow: '0 4px 12px rgba(59,130,246,0.3)', transition: 'transform 0.2s', fontWeight: 700 }}
-                    onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.transform = ''; }}
-                  >
-                    ⚖️ Evaluate Now
+                  <button className="btn-primary" onClick={() => handleOpenEvaluate(gId, 'committee')} style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>
+                    ✅ Evaluate
                   </button>
                 </div>
 
-                {/* Students */}
-                <div style={{ marginBottom: '1.5rem', background: '#f8fafc', padding: '1rem', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
-                  <p className="students-section-title" style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '10px' }}>Team Members</p>
-                  <div className="students-list" style={{ gap: '10px' }}>
+                {/* Team Members block */}
+                <div style={{ padding: '0.75rem 1rem' }}>
+                  <p className="students-section-title">Team Members</p>
+                  <div className="students-list">
                     {g.teamMembers && g.teamMembers.length > 0 ? (
                       g.teamMembers.map((member, idx) => (
-                        <div key={idx} className="student-chip" style={{ background: '#fff', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
-                          <div className="avatar-mini" style={{ background: 'linear-gradient(135deg, #10b981, #14b8a6)' }}>👤</div>
+                        <div key={idx} className="student-chip">
+                          <div className="avatar-mini">👤</div>
                           <div>
-                            <span className="reg-text" style={{ fontWeight: 700, color: '#1e293b' }}>{member.name || `Member ${idx + 1}`}</span>
-                            {member.regNo && <span style={{ fontSize: '0.7rem', color: '#64748b', marginLeft: '6px' }}>{member.regNo}</span>}
+                            <span className="reg-text" style={{ fontWeight: 600 }}>{member.name || `Member ${idx + 1}`}</span>
+                            {member.regNo && <span style={{ fontSize: '0.65rem', color: '#94a3b8', marginLeft: '5px' }}>({member.regNo})</span>}
                           </div>
                         </div>
                       ))
                     ) : g.studentRegs && g.studentRegs.length > 0 ? (
                       g.studentRegs.map((reg, idx) => (
-                        <div key={idx} className="student-chip" style={{ background: '#fff', border: '1px solid #e2e8f0' }}>
+                        <div key={idx} className="student-chip">
                           <div className="avatar-mini">👤</div>
                           <span className="reg-text">{reg}</span>
                         </div>
@@ -133,237 +130,213 @@ export function CommitteeView({
                 </div>
 
                 {/* --- Read-Only GitHub Section --- */}
-                <div className="github-section" style={{ borderTop: 'none', paddingTop: 0, marginTop: 0 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-                    <h4 className="github-section-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0, fontSize: '1.1rem', color: '#0f172a' }}>
-                      <GitHubIcon /> Deep GitHub Analytics
+                <div className="github-section">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                    <h4 className="github-section-title">
+                      <GitHubIcon /> GitHub Integration
                     </h4>
-                    
-                    {!perf && !thisError && !isChecking && repoUrl && (
-                      <button
-                        onClick={() => handleCheckPerformance(gId)}
-                        style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '8px', border: 'none', background: 'linear-gradient(135deg, #0f172a, #334155)', color: '#fff', cursor: 'pointer', fontWeight: 700, boxShadow: '0 4px 10px rgba(15,23,42,0.2)' }}
-                      >
-                        🔍 Fetch Analytics
-                      </button>
-                    )}
                     {perf && !isChecking && (
                       <button
                         onClick={() => handleCheckPerformance(gId)}
-                        style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', borderRadius: '8px', border: '1px solid #cbd5e1', background: '#fff', color: '#475569', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}
+                        style={{ padding: '0.3rem 0.6rem', fontSize: '0.7rem', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#fff', color: '#475569', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}
                       >
                         🔄 Refresh Data
                       </button>
                     )}
                   </div>
+
+                  {!repoUrl ? (
+                    <div style={{ background: '#f8fafc', border: '1px dashed #cbd5e1', padding: '1rem', borderRadius: '8px', textAlign: 'center', marginBottom: '1rem' }}>
+                      <p style={{ color: '#64748b', fontSize: '0.8rem', margin: '0 0 10px' }}>No GitHub repository linked to this group.</p>
+                    </div>
+                  ) : (
+                    <div style={{ marginBottom: '1rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f1f5f9', padding: '8px 12px', borderRadius: '6px', border: '1px solid #e2e8f0' }}>
+                        <span style={{ fontSize: '0.75rem', color: '#334155', fontWeight: 600, fontFamily: 'monospace', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {repoUrl}
+                        </span>
+                        <a href={repoUrl} target="_blank" rel="noreferrer" style={{ marginLeft: 'auto', color: '#3b82f6', textDecoration: 'none', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>
+                          Open ↗
+                        </a>
+                      </div>
+                    </div>
+                  )}
+
+                  {!perf && repoUrl && !thisError && !isChecking && (
+                    <button
+                      onClick={() => handleCheckPerformance(gId)}
+                      style={{ width: '100%', padding: '0.6rem', fontSize: '0.8rem', borderRadius: '8px', border: 'none', background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)', color: '#fff', cursor: 'pointer', fontWeight: 700 }}
+                    >
+                      🔍 Check Code Performance
+                    </button>
+                  )}
                   
-                  {!repoUrl && (
-                    <div style={{ textAlign: 'center', padding: '1.75rem', background: '#f8fafc', borderRadius: '12px', border: '1px dashed #cbd5e1' }}>
-                      <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🔗</div>
-                      <p style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '0' }}>No GitHub repository linked to this group.</p>
-                    </div>
-                  )}
-
-                  {/* Repo URL pill */}
-                  {repoUrl && (
-                    <p style={{ fontSize: '0.73rem', color: '#7c3aed', fontFamily: 'monospace', wordBreak: 'break-all', marginBottom: '1.25rem', background: '#f5f3ff', padding: '7px 12px', borderRadius: '9px', border: '1px solid #ede9fe' }}>
-                      🔗 {repoUrl}
-                    </p>
-                  )}
-
-                  {/* Checking animation */}
                   {isChecking && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1.25rem', background: 'linear-gradient(135deg, #f5f3ff, #ecfdf5)', borderRadius: '12px', border: '1px solid #ddd6fe', marginBottom: '1.25rem' }}>
-                      <div className="loading-spinner-lg" style={{ width: '1.75rem', height: '1.75rem', margin: 0 }} />
-                      <div>
-                        <p style={{ fontWeight: 800, fontSize: '0.9rem', color: '#7c3aed', margin: 0 }}>Fetching GitHub Performance…</p>
-                        <p style={{ color: '#94a3b8', fontSize: '0.76rem', margin: '2px 0 0' }}>Collecting commits, contributor stats & activity trends</p>
-                      </div>
+                    <div style={{ padding: '1rem', background: '#f5f3ff', borderRadius: '8px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+                      <div className="loading-spinner-lg" style={{ width: '1.25rem', height: '1.25rem', margin: 0 }} />
+                      <p style={{ fontWeight: 700, fontSize: '0.82rem', color: '#7c3aed', margin: 0 }}>Fetching GitHub data…</p>
                     </div>
                   )}
-
-                  {/* Error box */}
+                  
                   {thisError && !isChecking && (
-                    <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '12px', padding: '1.25rem', marginBottom: '1.25rem' }}>
-                      <p style={{ color: '#dc2626', fontSize: '0.85rem', fontWeight: 700, margin: '0 0 6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        ⚠️ GitHub Fetch Failed
-                      </p>
-                      <p style={{ color: '#b91c1c', fontSize: '0.8rem', margin: '0 0 12px', wordBreak: 'break-word' }}>{thisError}</p>
-                      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                        <button
-                          onClick={() => handleCheckPerformance(gId)}
-                          style={{ fontSize: '0.8rem', padding: '6px 16px', borderRadius: '8px', border: 'none', background: '#dc2626', color: '#fff', cursor: 'pointer', fontWeight: 700 }}
-                        >
-                          🔄 Retry
-                        </button>
-                        <p style={{ fontSize: '0.72rem', color: '#94a3b8', margin: 'auto 0' }}>Make sure the repo is public or the PAT has access.</p>
-                      </div>
+                    <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '8px', padding: '1rem' }}>
+                      <p style={{ color: '#dc2626', fontSize: '0.8rem', fontWeight: 700, margin: '0 0 6px' }}>⚠️ Error</p>
+                      <p style={{ color: '#b91c1c', fontSize: '0.75rem', margin: '0 0 10px', wordBreak: 'break-word' }}>{thisError}</p>
+                      <button
+                        onClick={() => handleCheckPerformance(gId)}
+                        style={{ fontSize: '0.75rem', padding: '6px 12px', borderRadius: '6px', border: 'none', background: '#dc2626', color: '#fff', cursor: 'pointer', fontWeight: 700 }}
+                      >
+                        🔄 Retry
+                      </button>
                     </div>
                   )}
 
-                  {/* PERFORMANCE CHARTS */}
+                  {/* CHARTS */}
                   {perf && !isChecking && (
                     <div>
-                      {/* Summary stats */}
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '0.875rem', marginBottom: '1.75rem' }}>
+                      {/* Stats pills */}
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem', marginBottom: '1rem' }}>
                         {[
-                          { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>, label: 'Total Commits', val: perf.totalCommits, color: '#8b5cf6' },
-                          { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, label: 'Contributors', val: perf.contributors?.length || 0, color: '#06b6d4' },
-                          { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>, label: 'Stars', val: perf.repoInfo?.stargazers_count ?? 0, color: '#f59e0b' },
-                          { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><path d="M12 12v3"/></svg>, label: 'Forks', val: perf.repoInfo?.forks_count ?? 0, color: '#10b981' },
+                          { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>, label: 'Total Commits', val: perf.totalCommits, color: '#8b5cf6' },
+                          { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, label: 'Contributors', val: perf.contributors?.length || 0, color: '#06b6d4' },
+                          { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>, label: 'Stars', val: perf.repoInfo?.stargazers_count ?? 0, color: '#f59e0b' },
+                          { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>, label: 'Open Issues', val: perf.repoInfo?.open_issues_count ?? 0, color: '#ef4444' },
                         ].map(stat => (
-                          <div key={stat.label} style={{
-                            background: '#fff', border: `1px solid ${stat.color}30`,
-                            borderRadius: '12px', padding: '1rem', textAlign: 'center',
-                            boxShadow: `0 2px 10px ${stat.color}15`,
-                          }}>
-                            <div style={{ fontSize: '1.6rem', marginBottom: '3px' }}>{stat.icon}</div>
-                            <div style={{ fontSize: '1.75rem', fontWeight: 900, color: stat.color, lineHeight: 1 }}>{stat.val}</div>
-                            <div style={{ fontSize: '0.65rem', color: '#94a3b8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.3px', marginTop: '3px' }}>{stat.label}</div>
+                          <div key={stat.label} style={{ background: '#fff', border: `1px solid ${stat.color}25`, borderRadius: '8px', padding: '0.625rem', textAlign: 'center', boxShadow: `0 2px 6px ${stat.color}10` }}>
+                            <div style={{ fontSize: '1rem' }}>{stat.icon}</div>
+                            <div style={{ fontSize: '1.2rem', fontWeight: 900, color: stat.color }}>{stat.val}</div>
+                            <div style={{ fontSize: '0.6rem', color: '#94a3b8', textTransform: 'uppercase', fontWeight: 600 }}>{stat.label}</div>
                           </div>
                         ))}
                       </div>
 
-                      {/* --- 5 MODERN CHARTS GRID --- */}
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
-                        
-                        {/* 1. Contribution Distribution (Donut Chart) */}
-                        {pieData.length > 0 && (
-                          <div style={{ background: '#fff', borderRadius: '14px', padding: '1.5rem', border: '1px solid #e2e8f0', boxShadow: '0 2px 12px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column' }}>
-                            <p style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.5px', marginBottom: '1.25rem' }}>🍩 Contribution Distribution</p>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1 }}>
-                              <ResponsiveContainer width={180} height={180}>
-                                <PieChart>
-                                  <Pie data={pieData} cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={4} dataKey="value" strokeWidth={0}>
-                                    {pieData.map((entry, pi) => <Cell key={pi} fill={entry.fill} />)}
-                                  </Pie>
-                                  <Tooltip contentStyle={{ background: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff', fontSize: '0.8rem' }} />
-                                </PieChart>
-                              </ResponsiveContainer>
-                              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                                {pieData.map((entry, pi) => {
-                                  const pct = perf.totalCommits > 0 ? Math.round((entry.value / perf.totalCommits) * 100) : 0;
-                                  return (
-                                    <div key={pi}>
-                                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                                        <div style={{ width: 12, height: 12, borderRadius: '50%', background: entry.fill, flexShrink: 0 }} />
-                                        <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#1e293b' }}>{entry.name}</span>
-                                        <span style={{ marginLeft: 'auto', fontSize: '0.82rem', color: entry.fill, fontWeight: 900 }}>{pct}%</span>
-                                      </div>
-                                      <div style={{ height: '6px', background: '#f1f5f9', borderRadius: '3px', overflow: 'hidden' }}>
-                                        <div style={{ height: '100%', width: `${pct}%`, background: entry.fill, borderRadius: '3px' }} />
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* 2. Activity Heatmap (Scatter Chart) */}
-                        {heatmapData.length > 0 && (
-                          <div style={{ background: '#fff', borderRadius: '14px', padding: '1.5rem', border: '1px solid #e2e8f0', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
-                            <p style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.5px', marginBottom: '1.25rem' }}>🔥 Activity Heatmap (8 Weeks)</p>
-                            <ResponsiveContainer width="100%" height={220}>
-                              <ScatterChart margin={{ top: 10, right: 20, bottom: 0, left: 10 }}>
-                                <CartesianGrid strokeDasharray="3 3" stroke="#f8fafc" vertical={false} />
-                                <XAxis type="category" dataKey="dateLabel" name="Week" tick={{ fontSize: 11, fill: '#64748b' }} axisLine={false} tickLine={false} />
-                                <YAxis type="category" dataKey="username" name="User" tick={{ fontSize: 11, fill: '#64748b', fontWeight: 600 }} axisLine={false} tickLine={false} width={80} />
-                                <ZAxis type="number" dataKey="commits" range={[40, 400]} name="Commits" />
-                                <Tooltip cursor={{ strokeDasharray: '3 3', stroke: '#cbd5e1' }} contentStyle={{ background: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff', fontSize: '0.8rem' }} />
-                                <Scatter data={heatmapData} shape="circle">
-                                  {heatmapData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.color} fillOpacity={0.8} />
+                      {/* CHART 1: Total Commits */}
+                      {totalCommitData.length > 0 && (
+                        <div style={{ marginBottom: '1.25rem' }}>
+                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>📊 Total Commits</p>
+                          <div style={{ background: '#fff', borderRadius: '10px', padding: '0.75rem', border: '1px solid #f1f5f9' }}>
+                            <ResponsiveContainer width="100%" height={160}>
+                              <BarChart data={totalCommitData} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
+                                <defs>
+                                  {totalCommitData.map((_, ci) => (
+                                    <linearGradient key={ci} id={`gc-g-${gId}-${ci}`} x1="0" y1="0" x2="0" y2="1">
+                                      <stop offset="0%" stopColor={CHART_COLORS[ci % CHART_COLORS.length]} stopOpacity={1} />
+                                      <stop offset="100%" stopColor={CHART_COLORS[(ci + 2) % CHART_COLORS.length]} stopOpacity={0.55} />
+                                    </linearGradient>
                                   ))}
-                                </Scatter>
-                              </ScatterChart>
-                            </ResponsiveContainer>
-                          </div>
-                        )}
-
-                        {/* 3. Contribution Trend (Multi-Line Chart) */}
-                        {trendData.length > 0 && (
-                          <div style={{ background: '#fff', borderRadius: '14px', padding: '1.5rem', border: '1px solid #e2e8f0', boxShadow: '0 2px 12px rgba(0,0,0,0.04)', gridColumn: '1 / -1' }}>
-                            <p style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.5px', marginBottom: '1.25rem' }}>📈 Contribution Trend</p>
-                            <ResponsiveContainer width="100%" height={260}>
-                              <LineChart data={trendData} margin={{ top: 10, right: 20, left: -10, bottom: 5 }}>
-                                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                                <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#64748b' }} axisLine={false} tickLine={false} />
-                                <YAxis tick={{ fontSize: 11, fill: '#64748b' }} axisLine={false} tickLine={false} />
-                                <Tooltip contentStyle={{ background: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff', fontSize: '0.8rem' }} />
-                                <Legend wrapperStyle={{ fontSize: '0.8rem', paddingTop: '10px' }} iconType="circle" />
-                                {perf?.contributors?.map((c, ci) => (
-                                  <Line key={c.username} type="monotone" dataKey={c.username} stroke={CHART_COLORS[ci % CHART_COLORS.length]} strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
-                                ))}
-                              </LineChart>
-                            </ResponsiveContainer>
-                          </div>
-                        )}
-
-                        {/* 4. Code Impact Analysis (Grouped Bar Chart) */}
-                        {impactData.length > 0 && (
-                          <div style={{ background: '#fff', borderRadius: '14px', padding: '1.5rem', border: '1px solid #e2e8f0', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
-                            <p style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.5px', marginBottom: '1.25rem' }}>⚖️ Code Impact Analysis</p>
-                            <ResponsiveContainer width="100%" height={260}>
-                              <BarChart data={impactData} margin={{ top: 10, right: 10, left: 10, bottom: 5 }}>
-                                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#64748b', fontWeight: 600 }} axisLine={false} tickLine={false} />
-                                <YAxis tick={{ fontSize: 11, fill: '#64748b' }} axisLine={false} tickLine={false} />
-                                <Tooltip cursor={{ fill: 'rgba(0,0,0,0.03)' }} contentStyle={{ background: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff', fontSize: '0.8rem' }} />
-                                <Legend wrapperStyle={{ fontSize: '0.8rem', paddingTop: '10px' }} iconType="circle" />
-                                <Bar dataKey="Additions" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={40} />
-                                <Bar dataKey="Deletions" fill="#ef4444" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                                </defs>
+                                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#475569', fontWeight: 700 }} axisLine={false} tickLine={false} />
+                                <YAxis tick={{ fontSize: 10, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
+                                <Tooltip
+                                  contentStyle={{ background: '#1e293b', border: 'none', borderRadius: '10px', color: '#fff', fontSize: '0.78rem', boxShadow: '0 8px 20px rgba(0,0,0,0.3)' }}
+                                  cursor={{ fill: 'rgba(139,92,246,0.06)' }}
+                                />
+                                <Bar dataKey="Commits" radius={[6, 6, 0, 0]} maxBarSize={50}>
+                                  {totalCommitData.map((_, ci) => (
+                                    <Cell key={ci} fill={`url(#gc-g-${gId}-${ci})`} />
+                                  ))}
+                                </Bar>
                               </BarChart>
                             </ResponsiveContainer>
                           </div>
-                        )}
+                        </div>
+                      )}
 
-                        {/* 5. Task Burndown (Area Chart) */}
-                        {burndownData.length > 0 ? (
-                          <div style={{ background: '#fff', borderRadius: '14px', padding: '1.5rem', border: '1px solid #e2e8f0', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
-                            <p style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.5px', marginBottom: '1.25rem' }}>📉 Task Burndown</p>
-                            <ResponsiveContainer width="100%" height={260}>
-                              <AreaChart data={burndownData} margin={{ top: 10, right: 10, left: -10, bottom: 5 }}>
-                                <defs>
-                                  <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3}/>
-                                    <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
-                                  </linearGradient>
-                                  <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.4}/>
-                                    <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
-                                  </linearGradient>
-                                </defs>
-                                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                                <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#64748b' }} axisLine={false} tickLine={false} />
-                                <YAxis tick={{ fontSize: 11, fill: '#64748b' }} axisLine={false} tickLine={false} />
-                                <Tooltip contentStyle={{ background: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff', fontSize: '0.8rem' }} />
-                                <Legend wrapperStyle={{ fontSize: '0.8rem', paddingTop: '10px' }} iconType="circle" />
-                                <Area type="monotone" dataKey="Total Tasks" stroke="#8b5cf6" fillOpacity={1} fill="url(#colorTotal)" strokeWidth={2} />
-                                <Area type="monotone" dataKey="Completed Tasks" stroke="#10b981" fillOpacity={1} fill="url(#colorCompleted)" strokeWidth={2} />
-                              </AreaChart>
+                      {/* CHART 2: Pie Chart */}
+                      {pieData.length > 0 && (
+                        <div style={{ marginBottom: '1.25rem' }}>
+                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>🍩 Commit Share</p>
+                          <div style={{ background: '#fff', borderRadius: '10px', padding: '0.75rem', border: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                            <ResponsiveContainer width={150} height={150}>
+                              <PieChart>
+                                <Pie data={pieData} cx="50%" cy="50%" innerRadius={42} outerRadius={68} paddingAngle={3} dataKey="value" strokeWidth={0}>
+                                  {pieData.map((entry, pi) => <Cell key={pi} fill={entry.fill} />)}
+                                </Pie>
+                                <Tooltip contentStyle={{ background: '#1e293b', border: 'none', borderRadius: '10px', color: '#fff', fontSize: '0.78rem' }} formatter={(val, name) => [`${val} commits`, name]} />
+                              </PieChart>
+                            </ResponsiveContainer>
+                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '5px', minWidth: '100px' }}>
+                              {pieData.map((entry, pi) => {
+                                const pct = perf.totalCommits > 0 ? Math.round((entry.value / perf.totalCommits) * 100) : 0;
+                                return (
+                                  <div key={pi}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
+                                      <div style={{ width: 10, height: 10, borderRadius: '3px', background: entry.fill, flexShrink: 0 }} />
+                                      <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#1e293b' }}>{entry.name}</span>
+                                      <span style={{ marginLeft: 'auto', fontSize: '0.7rem', color: entry.fill, fontWeight: 800 }}>{pct}%</span>
+                                    </div>
+                                    <div style={{ height: '5px', background: '#f1f5f9', borderRadius: '3px', overflow: 'hidden' }}>
+                                      <div style={{ height: '100%', width: `${pct}%`, background: entry.fill, borderRadius: '3px', transition: 'width 0.8s ease' }} />
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* CHART 3: Week vs Month */}
+                      {weekMonthData.length > 0 && (
+                        <div style={{ marginBottom: '1.25rem' }}>
+                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>📅 Last Week vs Month</p>
+                          <div style={{ background: '#fff', borderRadius: '10px', padding: '0.75rem', border: '1px solid #f1f5f9' }}>
+                            <ResponsiveContainer width="100%" height={160}>
+                              <BarChart data={weekMonthData} margin={{ top: 5, right: 5, left: -20, bottom: 5 }} barGap={3}>
+                                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                                <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#475569', fontWeight: 700 }} axisLine={false} tickLine={false} />
+                                <YAxis tick={{ fontSize: 10, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
+                                <Tooltip contentStyle={{ background: '#1e293b', border: 'none', borderRadius: '10px', color: '#fff', fontSize: '0.78rem', boxShadow: '0 8px 20px rgba(0,0,0,0.3)' }} cursor={{ fill: 'rgba(6,182,212,0.06)' }} />
+                                <Legend wrapperStyle={{ fontSize: '0.72rem', paddingTop: '4px' }} />
+                                <Bar dataKey="Last Month" fill="#8b5cf6" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                                <Bar dataKey="Last Week" fill="#06b6d4" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                              </BarChart>
                             </ResponsiveContainer>
                           </div>
-                        ) : (
-                          <div style={{ background: '#fff', borderRadius: '14px', padding: '1.5rem', border: '1px solid #e2e8f0', boxShadow: '0 2px 12px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '260px' }}>
-                            <p style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.5px', marginBottom: '0.5rem', alignSelf: 'flex-start' }}>📉 Task Burndown</p>
-                            <div style={{ fontSize: '2.5rem', marginBottom: '10px', opacity: 0.5 }}>📭</div>
-                            <h4 style={{ color: '#475569', margin: '0 0 5px' }}>No Issues Found</h4>
-                            <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0 }}>This repository doesn't have any GitHub issues to track task burndown.</p>
-                          </div>
-                        )}
+                        </div>
+                      )}
 
-                        {/* 6. Last 2 Weeks Commits (Bar Chart) */}
-                        {twoWeeksData.length > 0 && (
-                          <div style={{ background: '#fff', borderRadius: '14px', padding: '1.5rem', border: '1px solid #e2e8f0', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
-                            <p style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.5px', marginBottom: '1.25rem' }}>🗓️ Last 2 Weeks Commits</p>
-                            <ResponsiveContainer width="100%" height={260}>
-                              <BarChart data={twoWeeksData} margin={{ top: 10, right: 10, left: -10, bottom: 5 }}>
+                      {/* CHART 4: Consistency */}
+                      {consistencyData.length > 0 && (
+                        <div>
+                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>🎯 Consistency Score</p>
+                          <div style={{ background: '#fff', borderRadius: '10px', padding: '0.875rem', border: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            {consistencyData.map((c, ci) => {
+                              const color = c.score >= 70 ? '#10b981' : c.score >= 40 ? '#f59e0b' : '#ef4444';
+                              const bg = c.score >= 70 ? 'linear-gradient(90deg,#10b981,#06b6d4)' : c.score >= 40 ? 'linear-gradient(90deg,#f59e0b,#fbbf24)' : 'linear-gradient(90deg,#ef4444,#f97316)';
+                              return (
+                                <div key={ci}>
+                                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                                    <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#1e293b' }}>{c.username}</span>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                      <span style={{ fontWeight: 900, fontSize: '0.85rem', color }}>{c.score}%</span>
+                                      <span style={{ fontSize: '0.65rem', padding: '1px 7px', borderRadius: '100px', background: c.score >= 70 ? '#d1fae5' : c.score >= 40 ? '#fef9c3' : '#fee2e2', color, fontWeight: 700 }}>
+                                        {c.score >= 70 ? '✅ Consistent' : c.score >= 40 ? '⚠️ Moderate' : '❌ Inconsistent'}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div style={{ height: '10px', background: '#f1f5f9', borderRadius: '6px', overflow: 'hidden' }}>
+                                    <div style={{ height: '100%', width: `${c.score}%`, background: bg, borderRadius: '6px', transition: 'width 1s ease', boxShadow: `0 1px 4px ${color}40` }} />
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* CHART 5: Last 2 Weeks */}
+                      {twoWeeksData.length > 0 && (
+                        <div style={{ marginTop: '1.25rem', marginBottom: '1.25rem' }}>
+                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>🗓️ Last 2 Weeks Commits</p>
+                          <div style={{ background: '#fff', borderRadius: '10px', padding: '0.75rem', border: '1px solid #f1f5f9' }}>
+                            <ResponsiveContainer width="100%" height={160}>
+                              <BarChart data={twoWeeksData} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#64748b', fontWeight: 600 }} axisLine={false} tickLine={false} />
-                                <YAxis tick={{ fontSize: 11, fill: '#64748b' }} axisLine={false} tickLine={false} />
-                                <Tooltip cursor={{ fill: 'rgba(0,0,0,0.03)' }} contentStyle={{ background: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff', fontSize: '0.8rem' }} />
+                                <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#475569', fontWeight: 700 }} axisLine={false} tickLine={false} />
+                                <YAxis tick={{ fontSize: 10, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
+                                <Tooltip cursor={{ fill: 'rgba(0,0,0,0.03)' }} contentStyle={{ background: '#1e293b', border: 'none', borderRadius: '10px', color: '#fff', fontSize: '0.78rem' }} />
                                 <Bar dataKey="Commits" fill="#3b82f6" radius={[4, 4, 0, 0]} maxBarSize={40}>
                                   {twoWeeksData.map((_, ci) => (
                                     <Cell key={ci} fill={CHART_COLORS[ci % CHART_COLORS.length]} />
@@ -372,34 +345,50 @@ export function CommitteeView({
                               </BarChart>
                             </ResponsiveContainer>
                           </div>
-                        )}
+                        </div>
+                      )}
 
-                        {/* 7. Last Month Commits (Pie Chart) */}
-                        {monthPieData.length > 0 && (
-                          <div style={{ background: '#fff', borderRadius: '14px', padding: '1.5rem', border: '1px solid #e2e8f0', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
-                            <p style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.5px', marginBottom: '1.25rem' }}>📅 Last Month Commits</p>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                              <ResponsiveContainer width={180} height={180}>
-                                <PieChart>
-                                  <Pie data={monthPieData} cx="50%" cy="50%" innerRadius={0} outerRadius={80} dataKey="value" strokeWidth={1} stroke="#fff">
-                                    {monthPieData.map((entry, pi) => <Cell key={pi} fill={entry.fill} />)}
-                                  </Pie>
-                                  <Tooltip contentStyle={{ background: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff', fontSize: '0.8rem' }} />
-                                </PieChart>
-                              </ResponsiveContainer>
-                              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                {monthPieData.map((entry, pi) => (
-                                  <div key={pi} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                    <div style={{ width: 12, height: 12, borderRadius: '4px', background: entry.fill, flexShrink: 0 }} />
-                                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#1e293b' }}>{entry.name}</span>
-                                    <span style={{ marginLeft: 'auto', fontSize: '0.82rem', color: entry.fill, fontWeight: 900 }}>{entry.value}</span>
-                                  </div>
-                                ))}
-                              </div>
+                      {/* CHART 6: Last Month Pie */}
+                      {monthPieData.length > 0 && (
+                        <div style={{ marginBottom: '1.25rem' }}>
+                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>📅 Last Month Commits</p>
+                          <div style={{ background: '#fff', borderRadius: '10px', padding: '0.75rem', border: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                            <ResponsiveContainer width={150} height={150}>
+                              <PieChart>
+                                <Pie data={monthPieData} cx="50%" cy="50%" innerRadius={0} outerRadius={65} dataKey="value" strokeWidth={1} stroke="#fff">
+                                  {monthPieData.map((entry, pi) => <Cell key={pi} fill={entry.fill} />)}
+                                </Pie>
+                                <Tooltip contentStyle={{ background: '#1e293b', border: 'none', borderRadius: '10px', color: '#fff', fontSize: '0.78rem' }} />
+                              </PieChart>
+                            </ResponsiveContainer>
+                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '5px', minWidth: '100px' }}>
+                              {monthPieData.map((entry, pi) => (
+                                <div key={pi} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                  <div style={{ width: 10, height: 10, borderRadius: '3px', background: entry.fill, flexShrink: 0 }} />
+                                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#1e293b' }}>{entry.name}</span>
+                                  <span style={{ marginLeft: 'auto', fontSize: '0.7rem', color: entry.fill, fontWeight: 800 }}>{entry.value}</span>
+                                </div>
+                              ))}
                             </div>
                           </div>
-                        )}
+                        </div>
+                      )}
 
+                      {/* Bottom Action Row for Charts */}
+                      <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.875rem' }}>
+                        <button
+                          onClick={() => handleCheckPerformance(gId)}
+                          disabled={isChecking}
+                          style={{ flex: 1, padding: '0.5rem', fontSize: '0.75rem', borderRadius: '8px', border: '1px solid #ddd6fe', background: '#f5f3ff', color: '#7c3aed', cursor: 'pointer', fontWeight: 700 }}
+                        >
+                          🔄 Re-evaluate
+                        </button>
+                        <button
+                          onClick={() => setPerformanceData(p => { const next = {...p}; delete next[gId]; return next; })}
+                          style={{ flex: 1, padding: '0.5rem', fontSize: '0.75rem', borderRadius: '8px', border: '1px solid #cbd5e1', background: '#fff', color: '#475569', cursor: 'pointer', fontWeight: 700 }}
+                        >
+                          ⬆️ Show Less
+                        </button>
                       </div>
                     </div>
                   )}

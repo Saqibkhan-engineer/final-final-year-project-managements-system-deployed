@@ -101,6 +101,7 @@ export function PecCommitteesView({
                   <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#475569', marginBottom: '0.5rem' }}>Domain</label>
                   <select value={newCommitteeDomain} onChange={e => setNewCommitteeDomain(e.target.value)} style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem' }} required>
                     <option value="">Select Domain...</option>
+                    <option value="General">General</option>
                     <option value="Web">Web</option>
                     <option value="AI">AI</option>
                     <option value="Mobile">Mobile</option>
@@ -110,23 +111,21 @@ export function PecCommitteesView({
                   </select>
                 </div>
 
-                {newCommitteeDomain && (
-                  <div style={{ marginBottom: '1.25rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#475569', marginBottom: '0.5rem' }}>Select Members (Supervisors)</label>
-                    <div style={{ border: '1px solid #cbd5e1', borderRadius: '8px', maxHeight: '200px', overflowY: 'auto', padding: '0.5rem' }}>
-                      {availableSupervisors.length === 0 ? (
-                        <p style={{ fontSize: '0.85rem', color: '#64748b', textAlign: 'center', padding: '1rem 0', margin: 0 }}>No supervisors found for this domain.</p>
-                      ) : (
-                        availableSupervisors.map(sup => (
-                          <label key={sup.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0.5rem', cursor: 'pointer', borderBottom: '1px solid #f1f5f9' }}>
-                            <input type="checkbox" checked={selectedSupervisors.includes(sup.id)} onChange={() => toggleSupervisorSelection(sup.id)} style={{ width: '16px', height: '16px', accentColor: '#3b82f6' }} />
-                            <span style={{ fontSize: '0.9rem', color: '#334155' }}>{sup.user?.name || sup.name}</span>
-                          </label>
-                        ))
-                      )}
-                    </div>
+                <div style={{ marginBottom: '1.25rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#475569', marginBottom: '0.5rem' }}>Select Members (Supervisors)</label>
+                  <div style={{ border: '1px solid #cbd5e1', borderRadius: '8px', maxHeight: '200px', overflowY: 'auto', padding: '0.5rem' }}>
+                    {availableSupervisors.length === 0 ? (
+                      <p style={{ fontSize: '0.85rem', color: '#64748b', textAlign: 'center', padding: '1rem 0', margin: 0 }}>No supervisors found. Please select a domain or create supervisors first.</p>
+                    ) : (
+                      availableSupervisors.map(sup => (
+                        <label key={sup.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0.5rem', cursor: 'pointer', borderBottom: '1px solid #f1f5f9' }}>
+                          <input type="checkbox" checked={selectedSupervisors.includes(sup.id)} onChange={() => toggleSupervisorSelection(sup.id)} style={{ width: '16px', height: '16px', accentColor: '#3b82f6' }} />
+                          <span style={{ fontSize: '0.9rem', color: '#334155' }}>{sup.user?.name || sup.name}</span>
+                        </label>
+                      ))
+                    )}
                   </div>
-                )}
+                </div>
 
                 <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
                   <button type="button" onClick={closeCommitteeModal} style={{ padding: '0.6rem 1.2rem', background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '8px', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>

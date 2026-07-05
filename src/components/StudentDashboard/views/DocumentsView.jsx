@@ -37,6 +37,20 @@ export function DocumentsView({
           {evalPhases.map((phase, idx) => {
             const phaseId = phase.id || phase.phaseId || phase._id;
             const isSubmitted = documentStatus[phaseId]?.isSubmitted;
+            
+            // Check if all previous phases have been submitted
+            let allPreviousSubmitted = true;
+            for (let i = 0; i < idx; i++) {
+              const prevPhaseId = evalPhases[i].id || evalPhases[i].phaseId || evalPhases[i]._id;
+              if (!documentStatus[prevPhaseId]?.isSubmitted) {
+                allPreviousSubmitted = false;
+                break;
+              }
+            }
+
+            // If not all previous phases are submitted, don't render this phase
+            if (!allPreviousSubmitted) return null;
+
             return (
               <div key={idx} style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
                 <div>

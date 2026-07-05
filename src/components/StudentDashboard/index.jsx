@@ -342,7 +342,10 @@ export function StudentDashboard({ user, supervisors, onLogout }) {
 
       // Set proposal (works for all students via proposalId lock)
       if (dashboardData.hasProposal && dashboardData.data) {
-        setExistingProposal(dashboardData.data);
+        setExistingProposal({
+          ...dashboardData.data,
+          supervisorName: dashboardData.supervisorName
+        });
       } else {
         setExistingProposal(null);
       }

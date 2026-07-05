@@ -7,6 +7,7 @@ import { AddUserView } from "./views/AddUserView";
 import { CommitteesView } from "./views/CommitteesView";
 import { PecCommitteesView } from "./views/PecCommitteesView";
 import { PhasesView } from "./views/PhasesView";
+import { PasswordResetView } from "./views/PasswordResetView";
 import * as api from "./api";
 
 export function AdminDashboard({ user, onLogout }) {
@@ -82,9 +83,10 @@ export function AdminDashboard({ user, onLogout }) {
     try {
       setLoadingPecCommittees(true);
       const data = await api.fetchPecCommitteesApi();
-      setPecCommittees(data);
+      setPecCommittees(Array.isArray(data) ? data : (data?.data || []));
     } catch (err) {
       console.error('Failed to fetch committees:', err);
+      setPecCommittees([]);
     } finally {
       setLoadingPecCommittees(false);
     }
@@ -227,12 +229,8 @@ export function AdminDashboard({ user, onLogout }) {
   };
 
   useEffect(() => {
-    if (newCommitteeDomain) {
-      fetchSupervisorsByDomain(newCommitteeDomain);
-    } else {
-      setAvailableSupervisors([]);
-      setSelectedSupervisors([]);
-    }
+    // If no domain is selected, fetch all supervisors so they can still see existing members
+    fetchSupervisorsByDomain(newCommitteeDomain || "");
   }, [newCommitteeDomain]);
 
   const fetchSupervisorsByDomain = async (domain) => {
@@ -270,10 +268,17 @@ export function AdminDashboard({ user, onLogout }) {
 
   const openEditCommitteeModal = (committee) => {
     setEditingCommitteeId(committee.id);
-    setNewCommitteeName(committee.name);
-    setNewCommitteeDomain(committee.domain);
-    setSelectedSupervisors(committee.supervisors ? committee.supervisors.map(s => s.id) : []);
+    setNewCommitteeName(committee.name || "");
+    setNewCommitteeDomain(committee.domain || "");
+    // Preserve selected supervisors, safely extracting their IDs
+    const selected = committee.supervisors ? committee.supervisors.map(s => s.id) : [];
+    setSelectedSupervisors(selected);
     setShowCreateCommittee(true);
+    
+    // Explicitly fetch supervisors if domain exists to ensure they are loaded
+    if (committee.domain) {
+      fetchSupervisorsByDomain(committee.domain);
+    }
   };
 
   const closeCommitteeModal = () => {
@@ -507,6 +512,7 @@ export function AdminDashboard({ user, onLogout }) {
     { id: "committees", label: "Committees" },
     { id: "pec_committees", label: "Manage PEC Committees" },
     { id: "phases", label: "Manage Phases" },
+    { id: "reset_password", label: "Password Reset" },
   ];
 
   return (
@@ -585,6 +591,10 @@ export function AdminDashboard({ user, onLogout }) {
             handleDeletePhase={handleDeletePhase} openRubricsModal={openRubricsModal}
             setEditingPhaseId={setEditingPhaseId} setPhaseForm={setPhaseForm}
           />
+        )}
+
+        {activeView === "reset_password" && (
+          <PasswordResetView />
         )}
       </main>
 

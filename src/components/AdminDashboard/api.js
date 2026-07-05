@@ -149,3 +149,23 @@ export const assignCommitteesApi = async () => {
   if (!res.ok) throw new Error(data.message || 'Assignment failed');
   return data;
 };
+
+export const resetPasswordApi = async (body) => {
+  const res = await fetch('/api/auth/admin-reset-password', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  const text = await res.text();
+  const data = text ? JSON.parse(text) : {};
+  if (!res.ok) throw new Error(data.message || 'Password reset failed');
+  return data;
+};
+
+export const searchUserApi = async (role, query) => {
+  const res = await fetch(`/api/auth/search-user?role=${role}&query=${encodeURIComponent(query)}`);
+  const text = await res.text();
+  const data = text ? JSON.parse(text) : null;
+  if (!res.ok) throw new Error(data?.message || 'User not found');
+  return data;
+};

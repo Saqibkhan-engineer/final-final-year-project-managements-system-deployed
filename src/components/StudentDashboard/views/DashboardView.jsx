@@ -41,11 +41,29 @@ export function DashboardView({
         </div>
 
         <div className="stat-card">
-          <div className="stat-icon">S</div>
+          <div className="stat-icon" style={
+            (existingProposal?.supervisorName && existingProposal.supervisorName !== 'Not Assigned') || existingProposal?.supervisorStatus === 'accepted' 
+              ? { background: '#22c55e', color: 'white' } 
+              : {}
+          }>
+            {(existingProposal?.supervisorName && existingProposal.supervisorName !== 'Not Assigned') || existingProposal?.supervisorStatus === 'accepted' ? '✓' : 'S'}
+          </div>
           <div className="stat-info">
             <p className="stat-label">Supervisor</p>
-            <p className="stat-value">
-              {existingProposal?.status === 'approved' ? 'Select Now' : 'Pending'}
+            <p className="stat-value" style={
+              (existingProposal?.supervisorName && existingProposal.supervisorName !== 'Not Assigned') || existingProposal?.supervisorStatus === 'accepted'
+                ? { color: '#15803d', fontSize: '1.05rem' }
+                : {}
+            }>
+              {(existingProposal?.supervisorName && existingProposal.supervisorName !== 'Not Assigned')
+                ? existingProposal.supervisorName
+                : existingProposal?.supervisorStatus === 'accepted'
+                  ? 'Allocated'
+                  : existingProposal?.supervisorStatus === 'pending'
+                    ? 'Request Pending'
+                    : existingProposal?.status === 'approved'
+                      ? 'Select Now'
+                      : 'Pending'}
             </p>
           </div>
         </div>

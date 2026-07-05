@@ -114,10 +114,12 @@ export function SubmitProposalView({
                   onChange={(e) => setFormData({ ...formData, domain: e.target.value })}
                 >
                   <option value="">Select Domain</option>
-                  <option value="AI">Artificial Intelligence</option>
                   <option value="Web">Web Development</option>
+                  <option value="AI">Artificial Intelligence</option>
                   <option value="Mobile">Mobile Development</option>
                   <option value="Cyber">Cybersecurity</option>
+                  <option value="Networks">Networks</option>
+                  <option value="DataScience">Data Science</option>
                 </select>
               </div>
 

@@ -140,6 +140,16 @@ export function Sidebar({ activeView, setActiveView, onLogout, isOpen, setIsOpen
                                             <path fillRule="evenodd" d="M10.496 2.132a1 1 0 00-.992 0l-7 4A1 1 0 003 8v7a1 1 0 100 2h14a1 1 0 100-2V8a1 1 0 00-.5-1.868l-7-4zM4 9v6h2V9H4zm4 0v6h2V9H8zm4 0v6h2V9h-2z" clipRule="evenodd" />
                                         </svg>
                                     )}
+                                    {item.id === 'pec_committees' && (
+                                        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                                        </svg>
+                                    )}
+                                    {item.id === 'reset_password' && (
+                                        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                                            <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                                        </svg>
+                                    )}
                                 </span>
                                 <span className="nav-label">{item.label}</span>
                             </button>
