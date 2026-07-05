@@ -41,7 +41,7 @@ function getSocket() {
   return socket;
 }
 
-export function SupervisorDashboard({ user, supervisors, onLogout, originalRole, onSwitchRole }) {
+export function SupervisorDashboard({ user, onLogout, originalRole, onSwitchRole }) {
   const [activeView, setActiveView] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isInPecCommittee, setIsInPecCommittee] = useState(false);
@@ -249,7 +249,7 @@ export function SupervisorDashboard({ user, supervisors, onLogout, originalRole,
     setRequestsError("");
     try {
       const data = await fetchRequestsApi(resolvedSupervisorId);
-      setRequests(Array.isArray(data) ? data : []);
+      setRequests(Array.isArray(data) ? data.filter(r => r.status === 'pending') : []);
     } catch (err) {
       setRequestsError(err.message || "Cannot reach server.");
     } finally {

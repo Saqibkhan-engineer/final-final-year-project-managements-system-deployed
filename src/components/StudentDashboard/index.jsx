@@ -45,7 +45,7 @@ function getStudentSocket() {
   return studentSocket;
 }
 
-export function StudentDashboard({ user, supervisors, onLogout }) {
+export function StudentDashboard({ user, onLogout }) {
   const [activeView, setActiveView] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -775,7 +775,7 @@ export function StudentDashboard({ user, supervisors, onLogout }) {
             ideasLoading={ideasLoading}
             ideasError={ideasError}
             availableIdeas={availableIdeas}
-            supervisors={supervisors}
+
           />
         )}
 

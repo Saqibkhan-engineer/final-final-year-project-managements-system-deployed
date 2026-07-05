@@ -261,16 +261,16 @@ export function Login({ onLogin }) {
 
               {/* Graduation Cap Base (Underneath) */}
               <path d="M75 90 V130 C75 145 165 145 165 130 V90" fill="#1e3a8a" stroke="#0f172a" strokeWidth="10" strokeLinejoin="round" />
-              
+
               {/* Graduation Cap Top */}
               <path d="M120 30 L210 65 L120 100 L30 65 Z" fill="#2563eb" stroke="#0f172a" strokeWidth="10" strokeLinejoin="round" />
-              
+
               {/* Tassel String */}
               <path d="M120 65 L175 80 V115" fill="none" stroke="#0f172a" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-              
+
               {/* Tassel Button */}
               <circle cx="120" cy="65" r="7" fill="#ffffff" stroke="#0f172a" strokeWidth="5" />
-              
+
               {/* Tassel End */}
               <path d="M165 115 L160 145 H190 L185 115 Z" fill="#ffffff" stroke="#0f172a" strokeWidth="8" strokeLinejoin="round" />
             </svg>

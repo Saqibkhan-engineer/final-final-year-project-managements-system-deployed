@@ -40,16 +40,7 @@ function App() {
     }
   }, []);
 
-  const supervisors = [
-    { id: 1, name: "Dr. Muhammad Asif", domain: "AI", expertise: "Machine Learning, Deep Learning" },
-    { id: 2, name: "Dr. Sarah Ahmed", domain: "AI", expertise: "Computer Vision, NLP" },
-    { id: 3, name: "Dr. Ali Raza", domain: "Web", expertise: "Full Stack, Cloud Computing" },
-    { id: 4, name: "Dr. Fatima Khan", domain: "Web", expertise: "React, Node.js, APIs" },
-    { id: 5, name: "Dr. Hassan Malik", domain: "Mobile", expertise: "iOS, Android, React Native" },
-    { id: 6, name: "Dr. Ayesha Noor", domain: "Mobile", expertise: "Flutter, Mobile UX" },
-    { id: 7, name: "Dr. Usman Tariq", domain: "Cyber", expertise: "Network Security, Ethical Hacking" },
-    { id: 8, name: "Dr. Zainab Abbas", domain: "Cyber", expertise: "Cryptography, Penetration Testing" },
-  ];
+
 
   const handleLogin = (userType, user) => {
     setCurrentUser(userType);
@@ -76,7 +67,6 @@ function App() {
     return (
       <StudentDashboard
         user={userData}
-        supervisors={supervisors}
         onLogout={handleLogout}
       />
     );
@@ -97,7 +87,6 @@ function App() {
     return (
       <SupervisorDashboard
         user={userData}
-        supervisors={supervisors}
         originalRole={currentUser}
         onSwitchRole={setActiveRole}
         onLogout={handleLogout}

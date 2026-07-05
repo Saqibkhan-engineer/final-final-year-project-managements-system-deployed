@@ -1,6 +1,6 @@
 import React from "react";
 
-export function IdeasView({ ideasLoading, ideasError, availableIdeas, supervisors }) {
+export function IdeasView({ ideasLoading, ideasError, availableIdeas }) {
   return (
     <div className="ideas-container">
       <div className="welcome-banner" style={{ marginBottom: '2rem' }}>
@@ -27,8 +27,7 @@ export function IdeasView({ ideasLoading, ideasError, availableIdeas, supervisor
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
           {availableIdeas.map((idea) => {
-            const supervisorObj = supervisors?.find(s => s.id === idea.supervisorId);
-            const supervisorName = idea.supervisorName || supervisorObj?.user?.name || 'Faculty Member';
+            const supervisorName = idea.supervisorName || 'Faculty Member';
             return (
             <div key={idea.id} style={{ background: '#fff', borderRadius: '12px', padding: '1.5rem', border: '1px solid #cbd5e1', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', transition: 'transform 0.2s, box-shadow 0.2s', cursor: 'default' }}>
               <div style={{ marginBottom: '1rem' }}>
