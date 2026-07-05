@@ -1,3 +1,4 @@
+import { Check } from "lucide-react";
 import React from "react";
 
 export function HistoryView({ uploadHistory, setActiveView }) {
@@ -37,7 +38,7 @@ export function HistoryView({ uploadHistory, setActiveView }) {
                         className="meta-badge"
                         style={{ background: "#d1fae5", color: "#065f46" }}
                       >
-                        ✓ Embedded
+                        <Check className="inline-icon" size={18} /> Embedded
                       </span>
                     </div>
                   </div>

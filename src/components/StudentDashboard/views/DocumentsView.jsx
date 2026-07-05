@@ -1,3 +1,4 @@
+import { CheckCircle, FileText } from "lucide-react";
 import React from "react";
 
 export function DocumentsView({
@@ -14,7 +15,7 @@ export function DocumentsView({
   return (
     <div className="dashboard-home">
       <div className="welcome-banner" style={{ marginBottom: '1.5rem' }}>
-        <h1 style={{ fontSize: '1.4rem' }}>📄 Document Uploads</h1>
+        <h1 style={{ fontSize: '1.4rem' }}><FileText className="inline-icon" size={18} /> Document Uploads</h1>
         <p>Upload your documents for each evaluation phase.</p>
       </div>
       
@@ -60,7 +61,7 @@ export function DocumentsView({
                 
                 {isSubmitted ? (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: '#ecfdf5', color: '#059669', padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid #a7f3d0' }}>
-                    <span style={{ fontSize: '1.2rem' }}>✅</span>
+                    <span style={{ fontSize: '1.2rem' }}><CheckCircle className="inline-icon" size={18} /></span>
                     <span style={{ fontWeight: 600, fontSize: '0.85rem' }}>Already Submitted</span>
                   </div>
                 ) : (

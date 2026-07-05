@@ -1,4 +1,5 @@
- import React from "react";
+ import { CheckCircle } from "lucide-react";
+import React from "react";
 
 export function EnhancementModal({ enhancedProposal, onClose, onSendToPEC }) {
     if (!enhancedProposal) return null;
@@ -29,7 +30,7 @@ export function EnhancementModal({ enhancedProposal, onClose, onSendToPEC }) {
 
                 <div className="modal-body">
                     <div className="success-banner">
-                        <p>✅ Your proposal has been enhanced successfully!</p>
+                        <p><CheckCircle className="inline-icon" size={18} /> Your proposal has been enhanced successfully!</p>
                     </div>
 
                     <div className="enhancement-content">

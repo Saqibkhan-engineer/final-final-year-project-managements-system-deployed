@@ -1,3 +1,4 @@
+import { MessageCircle, RefreshCw } from "lucide-react";
 import React from "react";
 
 export function ChatView({
@@ -17,12 +18,12 @@ export function ChatView({
       {/* Sidebar */}
       <div className="chat-sidebar" style={{ minWidth: '220px', maxWidth: '220px' }}>
         <div className="chat-sidebar-header">
-          <span>💬</span>
+          <span><MessageCircle className="inline-icon" size={18} /></span>
           <h4>My Chat</h4>
         </div>
         {chatLoading ? (
           <div style={{ padding: '20px', textAlign: 'center', color: '#94a3b8', fontSize: '0.8rem' }}>
-            🔄 Loading group...
+            <RefreshCw className="inline-icon" size={18} /> Loading group...
           </div>
         ) : chatError ? (
           <div style={{ padding: '20px', textAlign: 'center', color: '#ef4444', fontSize: '0.8rem' }}>
@@ -56,11 +57,11 @@ export function ChatView({
 
         <div className="chat-messages-box" ref={chatBoxRef}>
           {chatLoading ? (
-            <div className="chat-no-messages">🔄 Loading chat...</div>
+            <div className="chat-no-messages"><RefreshCw className="inline-icon" size={18} /> Loading chat...</div>
           ) : chatError ? (
             <div className="chat-no-messages" style={{ color: '#ef4444' }}>{chatError}</div>
           ) : chatMessages.length === 0 ? (
-            <div className="chat-no-messages">No messages yet. Say hello! 👋</div>
+            <div className="chat-no-messages">No messages yet. Say hello! </div>
           ) : (
             chatMessages.map((msg, i) => {
               const isMine = msg.senderName === (user?.name || 'Student');

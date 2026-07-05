@@ -1,3 +1,4 @@
+import { CheckCircle, XCircle } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import { Sidebar } from "../Sidebar";
 import io from "socket.io-client";
@@ -188,7 +189,7 @@ export function SupervisorDashboard({ user, onLogout, originalRole, onSwitchRole
         const history = await fetchChatMessagesApi(selectedChatGroupId);
         setChatMessages(Array.isArray(history) ? history : []);
       } catch (e) {
-        console.error("❌ History fetch error:", e);
+        console.error("History fetch error:", e);
       } finally {
         setChatLoading(false);
       }
@@ -266,7 +267,7 @@ export function SupervisorDashboard({ user, onLogout, originalRole, onSwitchRole
       const groupInfo = data.group
         ? `\nGroup ID: ${data.group.id} | Students: ${(data.group.studentRegs || []).join(", ") || "—"}`
         : "";
-      alert(`✅ ${data.message || "Request accepted, group created successfully!"}${groupInfo}`);
+      alert(`<CheckCircle className="inline-icon" size={18} /> ${data.message || "Request accepted, group created successfully!"}${groupInfo}`);
     } catch (err) {
       alert(err.message || "Server error. Try again.");
     } finally {

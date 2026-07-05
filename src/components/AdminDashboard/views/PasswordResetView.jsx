@@ -1,3 +1,4 @@
+import { GraduationCap } from "lucide-react";
 import React, { useState } from "react";
 import * as api from "../api";
 
@@ -72,7 +73,7 @@ export function PasswordResetView() {
             onClick={() => { setRole("student"); setFoundUser(null); setSearchStatus(null); setResetStatus(null); setSearchQuery(""); }}
             style={{ flex: 1, padding: '0.8rem', borderRadius: '8px', border: `2px solid ${role === 'student' ? '#3b82f6' : '#e2e8f0'}`, background: role === 'student' ? '#eff6ff' : '#fff', color: role === 'student' ? '#1d4ed8' : '#64748b', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s' }}
           >
-            🎓 Student
+            <GraduationCap className="inline-icon" size={18} /> Student
           </button>
           <button 
             type="button"

@@ -14,7 +14,7 @@ export function DashboardHome({ student }) {
             <div className="welcome-card">
                 <div className="welcome-header">
                     <p className="welcome-date">{today}</p>
-                    <h1>Welcome back, {student.name.split(" ")[0]}!</h1>
+                    <h1>Welcome, {student.name.split(" ")[0]}!</h1>
                     <p className="welcome-subtitle">Always stay updated in your student portal</p>
                 </div>
 

@@ -1,3 +1,4 @@
+import { AlertTriangle, Lightbulb } from "lucide-react";
 import React from "react";
 
 export function IdeasView({
@@ -14,7 +15,7 @@ export function IdeasView({
   return (
     <div className="section-card">
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-        <h2 className="section-title" style={{ margin: 0 }}>💡 My Offered Ideas</h2>
+        <h2 className="section-title" style={{ margin: 0 }}><Lightbulb className="inline-icon" size={18} /> My Offered Ideas</h2>
         <button
           className="btn-primary"
           onClick={() => setShowIdeaForm(!showIdeaForm)}
@@ -62,14 +63,14 @@ export function IdeasView({
         </div>
       ) : ideasError ? (
         <div className="center-state">
-          <div className="state-icon">⚠️</div>
+          <div className="state-icon"><AlertTriangle className="inline-icon" size={18} /></div>
           <h3>Error</h3>
           <p>{ideasError}</p>
           <button className="retry-btn" onClick={fetchIdeas}>Retry</button>
         </div>
       ) : ideas.length === 0 ? (
         <div className="center-state">
-          <div className="state-icon">💡</div>
+          <div className="state-icon"><Lightbulb className="inline-icon" size={18} /></div>
           <h3>No Ideas Posted</h3>
           <p>You haven't posted any project ideas yet. Post one to attract student groups.</p>
         </div>

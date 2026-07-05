@@ -1,3 +1,4 @@
+import { AlertTriangle, Scale, FileText, Link, GitBranch, Check, ArrowRight } from "lucide-react";
 import React from "react";
 
 export function EvaluationModalView({
@@ -66,7 +67,7 @@ export function EvaluationModalView({
             paddingBottom: "1rem",
           }}
         >
-          <h2 style={{ margin: 0, color: "#1e293b", fontSize: "1.25rem" }}>⚖️ Evaluate Group</h2>
+          <h2 style={{ margin: 0, color: "#1e293b", fontSize: "1.25rem" }}><Scale className="inline-icon" size={18} /> Evaluate Group</h2>
           <button
             onClick={() => setEvalModalOpen(false)}
             style={{ background: "transparent", border: "none", fontSize: "1.5rem", cursor: "pointer", color: "#64748b" }}
@@ -82,7 +83,7 @@ export function EvaluationModalView({
           </div>
         ) : evalFormError ? (
           <div className="center-state">
-            <div className="state-icon">⚠️</div>
+            <div className="state-icon"><AlertTriangle className="inline-icon" size={18} /></div>
             <p>{evalFormError}</p>
           </div>
         ) : (() => {
@@ -140,7 +141,7 @@ export function EvaluationModalView({
                         fontWeight: "bold",
                       }}
                     >
-                      ✓ Completed & Locked
+                      <Check className="inline-icon" size={18} /> Completed & Locked
                     </span>
                   )}
                 </div>
@@ -168,7 +169,7 @@ export function EvaluationModalView({
                             gap: "0.5rem",
                           }}
                         >
-                          📄 Document Uploaded
+                          <FileText className="inline-icon" size={18} /> Document Uploaded
                         </h4>
                         <p style={{ margin: 0, color: "#64748b", fontSize: "0.85rem" }}>
                           {phaseDocument.fileName || "Submitted Document"}
@@ -187,7 +188,7 @@ export function EvaluationModalView({
                               textDecoration: "none",
                             }}
                           >
-                            🔗 View / Download Document
+                            <Link className="inline-icon" size={18} /> View / Download Document
                           </a>
                         )}
                         {phaseDocument.githubUrl && (
@@ -205,7 +206,7 @@ export function EvaluationModalView({
                               textDecoration: "none",
                             }}
                           >
-                            🐙 View GitHub Repo
+                            <GitBranch className="inline-icon" size={18} /> View GitHub Repo
                           </a>
                         )}
                       </div>
@@ -304,7 +305,7 @@ export function EvaluationModalView({
                       gap: "0.5rem",
                     }}
                   >
-                    <span style={{ fontSize: "1.2rem" }}>⚠️</span>
+                    <span style={{ fontSize: "1.2rem" }}><AlertTriangle className="inline-icon" size={18} /></span>
                     <span style={{ color: "#991b1b", fontSize: "0.85rem", fontWeight: 600 }}>
                       No document has been uploaded for this phase yet.
                     </span>
@@ -325,7 +326,7 @@ export function EvaluationModalView({
                             <span style={{ fontWeight: 600, color: "#334155" }}>Max Marks: {maxMarks}</span>
                             {isLockedForRole ? (
                               <span style={{ color: "#059669", fontWeight: 700, padding: "4px 10px", background: "#d1fae5", borderRadius: "6px" }}>
-                                ✓ Evaluated {phaseExistingMarks[rubric.id] !== undefined ? `(Score: ${phaseExistingMarks[rubric.id]})` : ""}
+                                <Check className="inline-icon" size={18} /> Evaluated {phaseExistingMarks[rubric.id] !== undefined ? `(Score: ${phaseExistingMarks[rubric.id]})` : ""}
                               </span>
                             ) : (
                               <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -453,7 +454,7 @@ export function EvaluationModalView({
                         boxShadow: "0 4px 6px -1px rgba(34, 197, 94, 0.2)",
                       }}
                     >
-                      {submittingMarks ? "Submitting..." : "✓ Submit Phase Marks"}
+                      {submittingMarks ? "Submitting..." : <><Check className="inline-icon" size={18} /> Submit Phase Marks</>}
                     </button>
                   </div>
                 )}
@@ -493,11 +494,11 @@ export function EvaluationModalView({
                         ) : null}
                         {evaluated && (
                           <span style={{ fontSize: "0.7rem", background: "#10b981", color: "#fff", padding: "3px 8px", borderRadius: "12px" }}>
-                            ✓ Completed
+                            <Check className="inline-icon" size={18} /> Completed
                           </span>
                         )}
                       </div>
-                      <span style={{ color: "#94a3b8", fontSize: "1.2rem" }}>→</span>
+                      <span style={{ color: "#94a3b8", fontSize: "1.2rem" }}><ArrowRight className="inline-icon" size={18} /></span>
                     </div>
                   </div>
                 );

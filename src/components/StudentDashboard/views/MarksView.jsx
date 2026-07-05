@@ -1,3 +1,4 @@
+import { BarChart2 } from "lucide-react";
 import React from "react";
 
 export function MarksView({
@@ -12,7 +13,7 @@ export function MarksView({
   return (
     <div className="dashboard-home">
       <div className="welcome-banner" style={{ marginBottom: '1.5rem', background: 'linear-gradient(135deg, #10b981, #059669)' }}>
-        <h1 style={{ fontSize: '1.4rem' }}>📊 Evaluation Marks</h1>
+        <h1 style={{ fontSize: '1.4rem' }}><BarChart2 className="inline-icon" size={18} /> Evaluation Marks</h1>
         <p>View your obtained marks for all evaluation phases.</p>
       </div>
       

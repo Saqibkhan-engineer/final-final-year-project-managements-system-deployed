@@ -1,3 +1,4 @@
+import { CheckCircle } from "lucide-react";
 import { useState } from "react";
 import React from "react";
 import "../App.css";
@@ -84,7 +85,7 @@ export function Login({ onLogin }) {
         throw new Error(data.message || 'Login failed');
       }
 
-      // ✅ Use sessionStorage by default; localStorage only if "Remember Me" is checked
+      // <CheckCircle className="inline-icon" size={18} /> Use sessionStorage by default; localStorage only if "Remember Me" is checked
       const storage = rememberMe ? localStorage : sessionStorage;
       storage.setItem('token', data.accesstoken);
       storage.setItem('user', JSON.stringify(data.user));
@@ -215,7 +216,7 @@ export function Login({ onLogin }) {
                   />
                   <span>Remember me</span>
                 </label>
-                <a href="#" className="forgot-link">Forgot password?</a>
+                
               </div>
 
               {/* Submit Button */}

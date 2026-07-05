@@ -1,3 +1,4 @@
+import { Users, FileText, GraduationCap, Tag, User, RefreshCw, Check } from "lucide-react";
 import { useState, useEffect } from "react";
 import React from "react";
 import { Sidebar } from "./Sidebar";
@@ -202,7 +203,7 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
               className="role-switch-btn"
               onClick={() => onSwitchRole('supervisor')}
             >
-              <span className="role-switch-icon">🔄</span>
+              <span className="role-switch-icon"><RefreshCw className="inline-icon" size={18} /></span>
               <span>Switch Back to Supervisor</span>
             </button>
           </div>
@@ -212,7 +213,7 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
         {activeView === "dashboard" && (
           <div className="dashboard-home">
             <div className="welcome-banner">
-              <h1>Welcome back, {user?.name || 'PEC Admin'}</h1>
+              <h1>Welcome, {user?.name || 'PEC Admin'}</h1>
               <p>Review and manage student proposals submitted for evaluation.</p>
             </div>
 
@@ -225,7 +226,7 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
                 </div>
               </div>
               <div className="stat-card">
-                <div className="stat-icon">✓</div>
+                <div className="stat-icon"><Check className="inline-icon" size={18} /></div>
                 <div className="stat-info">
                   <p className="stat-label">Approved</p>
                   <p className="stat-value">{approvedCount}</p>
@@ -388,7 +389,7 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
                 </div>
               ) : committees.length === 0 ? (
                 <div className="empty-state">
-                  <div className="empty-icon">👥</div>
+                  <div className="empty-icon"><Users className="inline-icon" size={18} /></div>
                   <h3>No Committees Found</h3>
                   <p>Create a new committee to get started.</p>
                 </div>
@@ -509,14 +510,14 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
             }}>
               <div>
                 <h3 style={{ margin: 0, color: '#fff', fontSize: '1rem', fontWeight: 700 }}>
-                  📄 {previewProposal.title}
+                  <FileText className="inline-icon" size={18} /> {previewProposal.title}
                 </h3>
                 <div style={{ display: 'flex', gap: '6px', marginTop: '6px' }}>
                   <span style={{
                     fontSize: '0.65rem', fontWeight: 700,
                     background: 'rgba(255,255,255,0.2)', color: '#fff',
                     padding: '2px 8px', borderRadius: '8px',
-                  }}>🏷️ {previewProposal.domain || 'N/A'}</span>
+                  }}><Tag className="inline-icon" size={18} /> {previewProposal.domain || 'N/A'}</span>
                   <span style={{
                     fontSize: '0.65rem', fontWeight: 700,
                     background: previewProposal.highestSimilarity > 60 ? '#fef2f2' : '#f0fdf4',
@@ -542,9 +543,9 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
               background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
               display: 'flex', gap: '1.5rem', fontSize: '0.78rem', color: '#64748b',
             }}>
-              <span>👤 {previewProposal.student?.user?.name || 'Unknown'}</span>
+              <span><User className="inline-icon" size={18} /> {previewProposal.student?.user?.name || 'Unknown'}</span>
               <span>✉️ {previewProposal.student?.user?.email || 'N/A'}</span>
-              <span>🎓 {previewProposal.student?.regNo || 'N/A'}</span>
+              <span><GraduationCap className="inline-icon" size={18} /> {previewProposal.student?.regNo || 'N/A'}</span>
             </div>
 
             {/* Description Body */}

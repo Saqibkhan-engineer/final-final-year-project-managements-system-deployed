@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import React from "react";
 
 export function DashboardView({
@@ -78,7 +79,7 @@ export function DashboardView({
             {/* Steps 2 & 3: Only after committees are created */}
             {committeesCreated && (
               <>
-                <span style={{ color: '#94a3b8', fontSize: '1.2rem' }}>→</span>
+                <span style={{ color: '#94a3b8', fontSize: '1.2rem' }}><ArrowRight className="inline-icon" size={18} /></span>
                 <button
                   className="action-btn-new"
                   style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)' }}
@@ -87,7 +88,7 @@ export function DashboardView({
                   <span>View Committees</span>
                 </button>
 
-                <span style={{ color: '#94a3b8', fontSize: '1.2rem' }}>→</span>
+                <span style={{ color: '#94a3b8', fontSize: '1.2rem' }}><ArrowRight className="inline-icon" size={18} /></span>
                 <button
                   className="action-btn-new"
                   style={{

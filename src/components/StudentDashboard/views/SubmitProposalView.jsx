@@ -1,3 +1,4 @@
+import { Users, CheckCircle, FileText, User, Search, RefreshCw, Check } from "lucide-react";
 import React from "react";
 
 export function SubmitProposalView({
@@ -82,7 +83,7 @@ export function SubmitProposalView({
                 )}
                 {!pdfExtracting && formData.description && (
                   <span style={{ marginLeft: '8px', fontSize: '0.72rem', color: '#059669', fontWeight: 500 }}>
-                    ✅ Auto-filled from PDF
+                    <CheckCircle className="inline-icon" size={18} /> Auto-filled from PDF
                   </span>
                 )}
               </label>
@@ -101,7 +102,7 @@ export function SubmitProposalView({
                 }}
               />
               <p style={{ fontSize: '0.68rem', color: '#94a3b8', margin: '4px 0 0' }}>
-                📄 Description is auto-extracted from your PDF file
+                <FileText className="inline-icon" size={18} /> Description is auto-extracted from your PDF file
               </p>
             </div>
 
@@ -173,7 +174,7 @@ export function SubmitProposalView({
               </div>
             ) : (
               <div className="similarity-alert low">
-                <span className="alert-icon">✓</span>
+                <span className="alert-icon"><Check className="inline-icon" size={18} /></span>
                 <div className="alert-text">
                   <strong>Low Similarity</strong>
                   <p>Your proposal appears to be unique</p>
@@ -241,7 +242,7 @@ export function SubmitProposalView({
             ) : (
               <>
                 <div className="form-group" style={{ textAlign: 'left', marginBottom: '1.5rem' }}>
-                  <label className="form-label" style={{ display: 'block', marginBottom: '0.5rem' }}>👥 Add Team Members (Max 3)</label>
+                  <label className="form-label" style={{ display: 'block', marginBottom: '0.5rem' }}><Users className="inline-icon" size={18} /> Add Team Members (Max 3)</label>
                   <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '12px' }}>
                     {/* Selected members as tags */}
                     {selectedTeamMembers.length > 0 && (
@@ -253,7 +254,7 @@ export function SubmitProposalView({
                             border: '1px solid #bfdbfe',
                             padding: '3px 8px', borderRadius: '20px', fontSize: '0.72rem', fontWeight: 600,
                           }}>
-                            👤 {m.name} <span style={{ color: '#94a3b8', fontSize: '0.65rem' }}>({m.regNo})</span>
+                            <User className="inline-icon" size={18} /> {m.name} <span style={{ color: '#94a3b8', fontSize: '0.65rem' }}>({m.regNo})</span>
                             {!m.isMe && (
                               <button onClick={() => removeTeamMember(m.id)} style={{
                                 background: 'none', border: 'none', cursor: 'pointer',
@@ -271,7 +272,7 @@ export function SubmitProposalView({
                         <input
                           type="text"
                           className="form-input"
-                          placeholder="🔍 Search student by name..."
+                          placeholder="Search student by name..."
                           value={memberSearchQuery}
                           onChange={(e) => searchStudents(e.target.value)}
                           onFocus={onSearchFocus}
@@ -289,7 +290,7 @@ export function SubmitProposalView({
                           }}>
                             {memberSearchLoading ? (
                               <div style={{ padding: '12px', textAlign: 'center', fontSize: '0.78rem', color: '#94a3b8' }}>
-                                🔄 Searching...
+                                <RefreshCw className="inline-icon" size={18} /> Searching...
                               </div>
                             ) : memberSearchResults.length === 0 ? (
                               <div style={{ padding: '12px', textAlign: 'center', fontSize: '0.78rem', color: '#94a3b8' }}>
@@ -308,7 +309,7 @@ export function SubmitProposalView({
                                 onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                               >
                                 <span style={{ fontWeight: 600, color: '#1e293b' }}>
-                                  👤 {s.user?.name || `Student #${s.id}`}
+                                  <User className="inline-icon" size={18} /> {s.user?.name || `Student #${s.id}`}
                                 </span>
                                 <span style={{
                                   fontSize: '0.68rem', color: '#64748b',
@@ -322,7 +323,7 @@ export function SubmitProposalView({
                     )}
 
                     {selectedTeamMembers.length === 3 && (
-                      <p style={{ fontSize: '0.7rem', color: '#d97706', marginTop: '6px' }}>✅ Maximum 3 members selected</p>
+                      <p style={{ fontSize: '0.7rem', color: '#d97706', marginTop: '6px' }}><CheckCircle className="inline-icon" size={18} /> Maximum 3 members selected</p>
                     )}
                   </div>
                 </div>

@@ -1,3 +1,4 @@
+import { Users } from "lucide-react";
 import React from "react";
 
 export function PecCommitteesView({
@@ -45,7 +46,7 @@ export function PecCommitteesView({
           </div>
         ) : pecCommittees.length === 0 ? (
           <div className="empty-state" style={{ textAlign: 'center', padding: '3rem', background: '#f8fafc', borderRadius: '12px' }}>
-            <div className="empty-icon" style={{ fontSize: '3rem', marginBottom: '1rem' }}>👥</div>
+            <div className="empty-icon" style={{ fontSize: '3rem', marginBottom: '1rem' }}><Users className="inline-icon" size={18} /></div>
             <h3 style={{ margin: '0 0 0.5rem' }}>No PEC Committees Found</h3>
             <p style={{ color: '#64748b' }}>Create a new committee to get started.</p>
           </div>

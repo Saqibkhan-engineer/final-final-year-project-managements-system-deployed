@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import React from "react";
 
 export function CommitteesView({
@@ -70,7 +71,7 @@ export function CommitteesView({
         <div style={{ textAlign: 'center', padding: '4rem', color: '#94a3b8', background: '#fff', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
           <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}></div>
           <h3 style={{ color: '#475569', margin: '0 0 0.5rem' }}>No Committees Yet</h3>
-          <p style={{ margin: 0, fontSize: '0.85rem' }}>Go to Dashboard → Step 1: Create Committees first.</p>
+          <p style={{ margin: 0, fontSize: '0.85rem' }}>Go to Dashboard <ArrowRight className="inline-icon" size={18} /> Step 1: Create Committees first.</p>
         </div>
       )}
 

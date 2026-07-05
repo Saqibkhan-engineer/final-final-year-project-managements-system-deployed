@@ -1,3 +1,4 @@
+import { FileText } from "lucide-react";
 import { useState } from "react";
 import React from "react";
 
@@ -130,7 +131,7 @@ export function ProposalSubmit({ onSubmit, loading }) {
                             />
                             {fileName ? (
                                 <div>
-                                    <p style={{ fontWeight: 600, color: "var(--text-dark)" }}>📄 {fileName}</p>
+                                    <p style={{ fontWeight: 600, color: "var(--text-dark)" }}><FileText className="inline-icon" size={18} /> {fileName}</p>
                                     <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.25rem" }}>
                                         Click to change file
                                     </p>

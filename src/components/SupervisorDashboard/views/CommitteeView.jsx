@@ -1,3 +1,4 @@
+import { AlertTriangle, Users, CheckCircle, XCircle, BarChart2, Scale, GraduationCap, Tag, User, Search, RefreshCw, PieChart as PieChartIcon, Calendar, CalendarDays, Target, ChevronUp, ExternalLink } from "lucide-react";
 import React from "react";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
@@ -25,7 +26,7 @@ export function CommitteeView({
 }) {
   return (
     <div className="section-card">
-      <h2 className="section-title">⚖️ Evaluation Committee Groups</h2>
+      <h2 className="section-title"><Scale className="inline-icon" size={18} /> Evaluation Committee Groups</h2>
 
       {evalGroupsLoading ? (
         <div className="center-state">
@@ -34,14 +35,14 @@ export function CommitteeView({
         </div>
       ) : evalGroupsError ? (
         <div className="center-state">
-          <div className="state-icon">⚠️</div>
+          <div className="state-icon"><AlertTriangle className="inline-icon" size={18} /></div>
           <h3>Error</h3>
           <p>{evalGroupsError}</p>
           <button className="retry-btn" onClick={fetchEvalGroups}>Retry</button>
         </div>
       ) : evalGroups.length === 0 ? (
         <div className="center-state">
-          <div className="state-icon">👥</div>
+          <div className="state-icon"><Users className="inline-icon" size={18} /></div>
           <h3>No Groups Allocated</h3>
           <p>You don't have any groups allocated for evaluation at the moment.</p>
         </div>
@@ -85,7 +86,7 @@ export function CommitteeView({
                 <div className="group-card-header">
                   <div>
                     <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0, color: '#1e293b' }}>
-                      🎓 {g.proposal?.title || g.name || `Group #${gId}`}
+                      <GraduationCap className="inline-icon" size={18} /> {g.proposal?.title || g.name || `Group #${gId}`}
                     </h3>
                     {g.proposal?.domain && (
                       <span style={{
@@ -94,11 +95,11 @@ export function CommitteeView({
                         border: '1px solid #bfdbfe',
                         padding: '1px 7px', borderRadius: '10px',
                         display: 'inline-block', marginTop: '3px',
-                      }}>🏷️ {g.proposal.domain}</span>
+                      }}><Tag className="inline-icon" size={18} /> {g.proposal.domain}</span>
                     )}
                   </div>
                   <button className="btn-primary" onClick={() => handleOpenEvaluate(gId, 'committee')} style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>
-                    ✅ Evaluate
+                    <CheckCircle className="inline-icon" size={18} /> Evaluate
                   </button>
                 </div>
 
@@ -109,7 +110,7 @@ export function CommitteeView({
                     {g.teamMembers && g.teamMembers.length > 0 ? (
                       g.teamMembers.map((member, idx) => (
                         <div key={idx} className="student-chip">
-                          <div className="avatar-mini">👤</div>
+                          <div className="avatar-mini"><User className="inline-icon" size={18} /></div>
                           <div>
                             <span className="reg-text" style={{ fontWeight: 600 }}>{member.name || `Member ${idx + 1}`}</span>
                             {member.regNo && <span style={{ fontSize: '0.65rem', color: '#94a3b8', marginLeft: '5px' }}>({member.regNo})</span>}
@@ -119,7 +120,7 @@ export function CommitteeView({
                     ) : g.studentRegs && g.studentRegs.length > 0 ? (
                       g.studentRegs.map((reg, idx) => (
                         <div key={idx} className="student-chip">
-                          <div className="avatar-mini">👤</div>
+                          <div className="avatar-mini"><User className="inline-icon" size={18} /></div>
                           <span className="reg-text">{reg}</span>
                         </div>
                       ))
@@ -140,7 +141,7 @@ export function CommitteeView({
                         onClick={() => handleCheckPerformance(gId)}
                         style={{ padding: '0.3rem 0.6rem', fontSize: '0.7rem', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#fff', color: '#475569', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}
                       >
-                        🔄 Refresh Data
+                        <RefreshCw className="inline-icon" size={18} /> Refresh Data
                       </button>
                     )}
                   </div>
@@ -156,7 +157,7 @@ export function CommitteeView({
                           {repoUrl}
                         </span>
                         <a href={repoUrl} target="_blank" rel="noreferrer" style={{ marginLeft: 'auto', color: '#3b82f6', textDecoration: 'none', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>
-                          Open ↗
+                          Open <ExternalLink className="inline-icon" size={18} />
                         </a>
                       </div>
                     </div>
@@ -167,7 +168,7 @@ export function CommitteeView({
                       onClick={() => handleCheckPerformance(gId)}
                       style={{ width: '100%', padding: '0.6rem', fontSize: '0.8rem', borderRadius: '8px', border: 'none', background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)', color: '#fff', cursor: 'pointer', fontWeight: 700 }}
                     >
-                      🔍 Check Code Performance
+                      <Search className="inline-icon" size={18} /> Check Code Performance
                     </button>
                   )}
                   
@@ -180,13 +181,13 @@ export function CommitteeView({
                   
                   {thisError && !isChecking && (
                     <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '8px', padding: '1rem' }}>
-                      <p style={{ color: '#dc2626', fontSize: '0.8rem', fontWeight: 700, margin: '0 0 6px' }}>⚠️ Error</p>
+                      <p style={{ color: '#dc2626', fontSize: '0.8rem', fontWeight: 700, margin: '0 0 6px' }}><AlertTriangle className="inline-icon" size={18} /> Error</p>
                       <p style={{ color: '#b91c1c', fontSize: '0.75rem', margin: '0 0 10px', wordBreak: 'break-word' }}>{thisError}</p>
                       <button
                         onClick={() => handleCheckPerformance(gId)}
                         style={{ fontSize: '0.75rem', padding: '6px 12px', borderRadius: '6px', border: 'none', background: '#dc2626', color: '#fff', cursor: 'pointer', fontWeight: 700 }}
                       >
-                        🔄 Retry
+                        <RefreshCw className="inline-icon" size={18} /> Retry
                       </button>
                     </div>
                   )}
@@ -213,7 +214,7 @@ export function CommitteeView({
                       {/* CHART 1: Total Commits */}
                       {totalCommitData.length > 0 && (
                         <div style={{ marginBottom: '1.25rem' }}>
-                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>📊 Total Commits</p>
+                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}><BarChart2 className="inline-icon" size={18} /> Total Commits</p>
                           <div style={{ background: '#fff', borderRadius: '10px', padding: '0.75rem', border: '1px solid #f1f5f9' }}>
                             <ResponsiveContainer width="100%" height={160}>
                               <BarChart data={totalCommitData} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
@@ -246,7 +247,7 @@ export function CommitteeView({
                       {/* CHART 2: Pie Chart */}
                       {pieData.length > 0 && (
                         <div style={{ marginBottom: '1.25rem' }}>
-                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>🍩 Commit Share</p>
+                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}><PieChartIcon className="inline-icon" size={18} /> Commit Share</p>
                           <div style={{ background: '#fff', borderRadius: '10px', padding: '0.75rem', border: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
                             <ResponsiveContainer width={150} height={150}>
                               <PieChart>
@@ -280,7 +281,7 @@ export function CommitteeView({
                       {/* CHART 3: Week vs Month */}
                       {weekMonthData.length > 0 && (
                         <div style={{ marginBottom: '1.25rem' }}>
-                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>📅 Last Week vs Month</p>
+                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}><Calendar className="inline-icon" size={18} /> Last Week vs Month</p>
                           <div style={{ background: '#fff', borderRadius: '10px', padding: '0.75rem', border: '1px solid #f1f5f9' }}>
                             <ResponsiveContainer width="100%" height={160}>
                               <BarChart data={weekMonthData} margin={{ top: 5, right: 5, left: -20, bottom: 5 }} barGap={3}>
@@ -300,7 +301,7 @@ export function CommitteeView({
                       {/* CHART 4: Consistency */}
                       {consistencyData.length > 0 && (
                         <div>
-                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>🎯 Consistency Score</p>
+                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}><Target className="inline-icon" size={18} /> Consistency Score</p>
                           <div style={{ background: '#fff', borderRadius: '10px', padding: '0.875rem', border: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                             {consistencyData.map((c, ci) => {
                               const color = c.score >= 70 ? '#10b981' : c.score >= 40 ? '#f59e0b' : '#ef4444';
@@ -312,7 +313,7 @@ export function CommitteeView({
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                                       <span style={{ fontWeight: 900, fontSize: '0.85rem', color }}>{c.score}%</span>
                                       <span style={{ fontSize: '0.65rem', padding: '1px 7px', borderRadius: '100px', background: c.score >= 70 ? '#d1fae5' : c.score >= 40 ? '#fef9c3' : '#fee2e2', color, fontWeight: 700 }}>
-                                        {c.score >= 70 ? '✅ Consistent' : c.score >= 40 ? '⚠️ Moderate' : '❌ Inconsistent'}
+                                        {c.score >= 70 ? '<CheckCircle className="inline-icon" size={18} /> Consistent' : c.score >= 40 ? '<AlertTriangle className="inline-icon" size={18} /> Moderate' : '<XCircle className="inline-icon" size={18} /> Inconsistent'}
                                       </span>
                                     </div>
                                   </div>
@@ -329,7 +330,7 @@ export function CommitteeView({
                       {/* CHART 5: Last 2 Weeks */}
                       {twoWeeksData.length > 0 && (
                         <div style={{ marginTop: '1.25rem', marginBottom: '1.25rem' }}>
-                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>🗓️ Last 2 Weeks Commits</p>
+                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}><CalendarDays className="inline-icon" size={18} /> Last 2 Weeks Commits</p>
                           <div style={{ background: '#fff', borderRadius: '10px', padding: '0.75rem', border: '1px solid #f1f5f9' }}>
                             <ResponsiveContainer width="100%" height={160}>
                               <BarChart data={twoWeeksData} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
@@ -351,7 +352,7 @@ export function CommitteeView({
                       {/* CHART 6: Last Month Pie */}
                       {monthPieData.length > 0 && (
                         <div style={{ marginBottom: '1.25rem' }}>
-                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>📅 Last Month Commits</p>
+                          <p style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.5px', marginBottom: '0.5rem' }}><Calendar className="inline-icon" size={18} /> Last Month Commits</p>
                           <div style={{ background: '#fff', borderRadius: '10px', padding: '0.75rem', border: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
                             <ResponsiveContainer width={150} height={150}>
                               <PieChart>
@@ -381,13 +382,13 @@ export function CommitteeView({
                           disabled={isChecking}
                           style={{ flex: 1, padding: '0.5rem', fontSize: '0.75rem', borderRadius: '8px', border: '1px solid #ddd6fe', background: '#f5f3ff', color: '#7c3aed', cursor: 'pointer', fontWeight: 700 }}
                         >
-                          🔄 Re-evaluate
+                          <RefreshCw className="inline-icon" size={18} /> Re-evaluate
                         </button>
                         <button
                           onClick={() => setPerformanceData(p => { const next = {...p}; delete next[gId]; return next; })}
                           style={{ flex: 1, padding: '0.5rem', fontSize: '0.75rem', borderRadius: '8px', border: '1px solid #cbd5e1', background: '#fff', color: '#475569', cursor: 'pointer', fontWeight: 700 }}
                         >
-                          ⬆️ Show Less
+                          <ChevronUp className="inline-icon" size={18} /> Show Less
                         </button>
                       </div>
                     </div>

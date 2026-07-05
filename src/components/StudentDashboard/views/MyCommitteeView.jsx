@@ -1,3 +1,4 @@
+import { RefreshCw, Building2 } from "lucide-react";
 import React from "react";
 
 export function MyCommitteeView({ fetchMyCommittee, committeeLoading, committeeError, myCommittee }) {
@@ -5,7 +6,7 @@ export function MyCommitteeView({ fetchMyCommittee, committeeLoading, committeeE
     <div className="dashboard-home">
       {/* Header */}
       <div className="welcome-banner" style={{ marginBottom: '1.5rem' }}>
-        <h1 style={{ fontSize: '1.4rem' }}>🏛️ My Evaluation Committee</h1>
+        <h1 style={{ fontSize: '1.4rem' }}><Building2 className="inline-icon" size={18} /> My Evaluation Committee</h1>
         <p>The committee assigned to evaluate your final year project</p>
       </div>
 
@@ -20,7 +21,7 @@ export function MyCommitteeView({ fetchMyCommittee, committeeLoading, committeeE
           opacity: committeeLoading ? 0.7 : 1,
         }}
       >
-        {committeeLoading ? '⏳ Loading...' : '🔄 Refresh'}
+        {committeeLoading ? '⏳ Loading...' : '<RefreshCw className="inline-icon" size={18} /> Refresh'}
       </button>
 
       {/* Loading */}

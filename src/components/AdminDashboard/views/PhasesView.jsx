@@ -1,3 +1,4 @@
+import { BarChart2, Calendar } from "lucide-react";
 import React from "react";
 
 export function PhasesView({
@@ -62,7 +63,7 @@ export function PhasesView({
            </div>
         ) : phases.length === 0 ? (
            <div style={{ textAlign: 'center', padding: '3rem', background: '#f8fafc', borderRadius: '12px', border: '1px dashed #cbd5e1' }}>
-             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📊</div>
+             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}><BarChart2 className="inline-icon" size={18} /></div>
              <h3 style={{ margin: '0 0 0.5rem' }}>No Phases Defined Yet</h3>
              <p style={{ color: '#64748b', margin: 0 }}>Create a new evaluation phase to get started.</p>
            </div>
@@ -107,7 +108,7 @@ export function PhasesView({
                   </div>
                   <div style={{ padding: '1.25rem', background: '#f8fafc' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#475569', fontSize: '0.9rem', marginBottom: '1rem' }}>
-                      <span style={{ fontSize: '1.2rem' }}>📅</span>
+                      <span style={{ fontSize: '1.2rem' }}><Calendar className="inline-icon" size={18} /></span>
                       <span><strong>Deadline:</strong> {phase.deadline ? new Date(phase.deadline).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : 'Not set'}</span>
                     </div>
                     <button 

@@ -1,3 +1,4 @@
+import { Tag, Check } from "lucide-react";
 import React from "react";
 
 export function StatusView({
@@ -89,7 +90,7 @@ export function StatusView({
                       fontSize: '1.5rem',
                       flexShrink: 0
                     }}>
-                      ✓
+                      <Check className="inline-icon" size={18} />
                     </div>
                     <div>
                       <h4 style={{ margin: '0 0 0.25rem 0', color: '#166534', fontSize: '1.1rem' }}>
@@ -164,7 +165,7 @@ export function StatusView({
                                     fontSize: '0.7rem', fontWeight: 500,
                                     background: '#f1f5f9', color: '#475569',
                                     padding: '4px 10px', borderRadius: '12px',
-                                  }}>🏷️ {ex}</span>
+                                  }}><Tag className="inline-icon" size={18} /> {ex}</span>
                                 ))}
                               </div>
 

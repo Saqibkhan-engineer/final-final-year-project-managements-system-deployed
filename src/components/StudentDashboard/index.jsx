@@ -1,3 +1,4 @@
+import { CheckCircle, XCircle, Search } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import { Sidebar } from "../Sidebar";
 import io from "socket.io-client";
@@ -138,7 +139,7 @@ export function StudentDashboard({ user, onLogout }) {
     const s = getStudentSocket();
     const joinRoom = () => {
       s.emit('joinRoom', myGroupId);
-      console.log('✅ Student joined group room:', myGroupId);
+      console.log('<CheckCircle className="inline-icon" size={18} /> Student joined group room:', myGroupId);
     };
     if (s.connected) joinRoom();
     else s.on('connect', joinRoom);
@@ -178,7 +179,7 @@ export function StudentDashboard({ user, onLogout }) {
         const s = getStudentSocket();
         const joinRoom = () => {
           s.emit('joinRoom', myGroupId);
-          console.log('✅ Student joined room:', myGroupId, '| socket id:', s.id);
+          console.log('<CheckCircle className="inline-icon" size={18} /> Student joined room:', myGroupId, '| socket id:', s.id);
         };
         
         if (s.connected) {
@@ -201,7 +202,7 @@ export function StudentDashboard({ user, onLogout }) {
           s.off('connect', joinRoom);
         };
       } catch (err) {
-        console.error('❌ Chat init error:', err);
+        console.error('<XCircle className="inline-icon" size={18} /> Chat init error:', err);
         setChatError('Failed to load chat. Please try again.');
         setChatLoading(false);
       }
@@ -330,15 +331,15 @@ export function StudentDashboard({ user, onLogout }) {
 
   const fetchMyProposal = async () => {
     if (!user?.studentId) {
-      console.log('❌ No studentId found on user object:', user);
+      console.log('<XCircle className="inline-icon" size={18} /> No studentId found on user object:', user);
       return;
     }
-    console.log('🔍 Fetching dashboard for studentId:', user.studentId);
+    console.log('<Search className="inline-icon" size={18} /> Fetching dashboard for studentId:', user.studentId);
 
     try {
       setProposalLoading(true);
       const dashboardData = await fetchStudentDashboardApi(user.studentId);
-      console.log('🔍 Dashboard data:', dashboardData);
+      console.log('<Search className="inline-icon" size={18} /> Dashboard data:', dashboardData);
 
       // Set proposal (works for all students via proposalId lock)
       if (dashboardData.hasProposal && dashboardData.data) {
@@ -350,13 +351,13 @@ export function StudentDashboard({ user, onLogout }) {
         setExistingProposal(null);
       }
 
-      // ✅ Set groupId from dashboard response (no separate API call needed)
+      // <CheckCircle className="inline-icon" size={18} /> Set groupId from dashboard response (no separate API call needed)
       if (dashboardData.groupId) {
         setMyGroupId(dashboardData.groupId);
-        console.log('✅ GroupId set from dashboard:', dashboardData.groupId);
+        console.log('<CheckCircle className="inline-icon" size={18} /> GroupId set from dashboard:', dashboardData.groupId);
       }
     } catch (err) {
-      console.log('❌ Error fetching dashboard:', err);
+      console.log('<XCircle className="inline-icon" size={18} /> Error fetching dashboard:', err);
       setExistingProposal(null);
     } finally {
       setProposalLoading(false);
@@ -613,7 +614,7 @@ export function StudentDashboard({ user, onLogout }) {
       setFileName("");
     } catch (error) {
       console.error(error);
-      alert("❌ Similarity check failed: " + error.message);
+      alert("Similarity check failed: " + error.message);
     } finally {
       setLoading(false);
     }
@@ -646,7 +647,7 @@ export function StudentDashboard({ user, onLogout }) {
       } else if (error.message === 'MODEL_UNAVAILABLE') {
         alert("🔧 AI Service Unavailable\n\nThe AI enhancement model is currently unavailable. Please try again later.");
       } else {
-        alert("❌ Enhancement failed. Please try again or proceed with your current proposal.");
+        alert("Enhancement failed. Please try again or proceed with your current proposal.");
       }
     } finally {
       setLoading(false);
@@ -665,7 +666,7 @@ export function StudentDashboard({ user, onLogout }) {
 
       await submitToPecApi(payloadToSubmit);
 
-      alert("✅ Proposal sent to Proposal Evaluation Committee!");
+      alert("Proposal sent to Proposal Evaluation Committee!");
       setCurrentStep("form");
       setSubmittedProposal(null);
       setEnhancedData(null);
@@ -679,11 +680,11 @@ export function StudentDashboard({ user, onLogout }) {
       setMemberSearchResults([]);
 
       await fetchMyProposal();
-      console.log('✅ Proposal submitted. Other group members will see status on next load.');
+      console.log('Proposal submitted. Other group members will see status on next load.');
 
     } catch (error) {
       console.error(error);
-      alert("❌ Failed to submit: " + error.message);
+      alert("Failed to submit: " + error.message);
     } finally {
       setLoading(false);
     }
