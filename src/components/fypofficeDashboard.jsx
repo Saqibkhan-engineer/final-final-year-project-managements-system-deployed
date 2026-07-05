@@ -31,7 +31,7 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
     try {
       setLoading(true);
       const supervisorId = user?.supervisorId || user?.id || 1; // Fallback to 1 if missing for testing
-      const res = await fetch(`/api/pec/submitted/${supervisorId}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/submitted/${supervisorId}`);
       if (res.ok) {
         const data = await res.json();
         setProposals(data);
@@ -51,7 +51,7 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
     const feedback = feedbackInputs[id] || "Proposal approved. Proceed to supervisor selection.";
     setActionLoading({ ...actionLoading, [id]: 'approve' });
     try {
-      const res = await fetch(`/api/pec/approve/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/approve/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ feedback }),
@@ -76,7 +76,7 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
     }
     setActionLoading({ ...actionLoading, [id]: 'reject' });
     try {
-      const res = await fetch(`/api/pec/reject/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/reject/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ feedback }),
@@ -103,7 +103,7 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
   const fetchCommittees = async () => {
     try {
       setLoadingCommittees(true);
-      const res = await fetch('/api/pec/all');
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/all');
       if (res.ok) {
         const data = await res.json();
         setCommittees(data);
@@ -126,7 +126,7 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
 
   const fetchSupervisorsByDomain = async (domain) => {
     try {
-      const res = await fetch(`/api/supervisor/all?domain=${domain}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/supervisor/all?domain=${domain}`);
       if (res.ok) {
         const data = await res.json();
         setAvailableSupervisors(data);
@@ -144,7 +144,7 @@ export function OfficeDashboard({ user, onLogout, originalRole, onSwitchRole }) 
     }
     try {
       setCreatingCommittee(true);
-      const res = await fetch('/api/pec/create', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

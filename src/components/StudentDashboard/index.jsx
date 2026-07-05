@@ -40,7 +40,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
 let studentSocket = null;
 function getStudentSocket() {
   if (!studentSocket) {
-    studentSocket = io("/", { transports: ["websocket", "polling"] });
+    studentSocket = io(import.meta.env.VITE_API_URL || "/", { transports: ["websocket", "polling"] });
   }
   return studentSocket;
 }

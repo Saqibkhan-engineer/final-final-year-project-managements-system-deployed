@@ -1,17 +1,17 @@
 export const fetchPecCommitteesApi = async () => {
-  const res = await fetch('/api/pec/all');
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/all');
   if (!res.ok) throw new Error('Failed to fetch committees');
   return res.json();
 };
 
 export const fetchPhasesApi = async () => {
-  const res = await fetch('/api/evaluation/phases');
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/evaluation/phases');
   if (!res.ok) throw new Error('Failed to fetch phases');
   return res.json();
 };
 
 export const fetchRubricsApi = async (phaseId) => {
-  const res = await fetch(`/api/evaluation/rubrics/${phaseId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/evaluation/rubrics/${phaseId}`);
   if (!res.ok) throw new Error('Failed to fetch rubrics');
   return res.json();
 };
@@ -32,7 +32,7 @@ export const saveRubricApi = async (editingRubricId, body) => {
 };
 
 export const deleteRubricApi = async (id) => {
-  const res = await fetch(`/api/evaluation/rubrics/${id}`, { method: 'DELETE' });
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/evaluation/rubrics/${id}`, { method: 'DELETE' });
   if (!res.ok) throw new Error('Failed to delete rubric.');
   return res;
 };
@@ -53,7 +53,7 @@ export const savePhaseApi = async (editingPhaseId, body) => {
 };
 
 export const deletePhaseApi = async (id) => {
-  const res = await fetch(`/api/evaluation/${id}`, { method: 'DELETE' });
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/evaluation/${id}`, { method: 'DELETE' });
   if (!res.ok) throw new Error('Failed to delete phase.');
   return res;
 };
@@ -78,7 +78,7 @@ export const savePecCommitteeApi = async (editingCommitteeId, body) => {
 };
 
 export const saveProposalApi = async (formData) => {
-  const res = await fetch("/api/fyp-office/save-proposal", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/fyp-office/save-proposal", {
     method: "POST",
     body: formData,
   });
@@ -96,7 +96,7 @@ export const saveProposalApi = async (formData) => {
 };
 
 export const signupUserApi = async (body) => {
-  const res = await fetch('/api/auth/signup', {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/auth/signup', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
@@ -108,7 +108,7 @@ export const signupUserApi = async (body) => {
 };
 
 export const createCommitteesApi = async () => {
-  const res = await fetch('/api/committee/create-committees', {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/committee/create-committees', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
   });
@@ -119,7 +119,7 @@ export const createCommitteesApi = async () => {
 };
 
 export const fetchCommitteesDetailsApi = async () => {
-  const res = await fetch('/api/committee/committees-details');
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/committee/committees-details');
   const text = await res.text();
   const data = text ? JSON.parse(text) : [];
   if (!res.ok) throw new Error(data.message || 'Failed to fetch committees');
@@ -127,7 +127,7 @@ export const fetchCommitteesDetailsApi = async () => {
 };
 
 export const updateEvalCommitteesApi = async (body) => {
-  const res = await fetch('/api/committee/update-committees', {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/committee/update-committees', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
@@ -140,7 +140,7 @@ export const updateEvalCommitteesApi = async (body) => {
 };
 
 export const assignCommitteesApi = async () => {
-  const res = await fetch('/api/committee/assign-committees', {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/committee/assign-committees', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
   });
@@ -151,7 +151,7 @@ export const assignCommitteesApi = async () => {
 };
 
 export const resetPasswordApi = async (body) => {
-  const res = await fetch('/api/auth/admin-reset-password', {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/auth/admin-reset-password', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
@@ -163,7 +163,7 @@ export const resetPasswordApi = async (body) => {
 };
 
 export const searchUserApi = async (role, query) => {
-  const res = await fetch(`/api/auth/search-user?role=${role}&query=${encodeURIComponent(query)}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/auth/search-user?role=${role}&query=${encodeURIComponent(query)}`);
   const text = await res.text();
   const data = text ? JSON.parse(text) : null;
   if (!res.ok) throw new Error(data?.message || 'User not found');

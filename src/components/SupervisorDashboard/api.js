@@ -1,11 +1,11 @@
 export const checkPecCommitteeStatusApi = async (supervisorId) => {
-  const res = await fetch(`/api/pec/check-supervisor/${supervisorId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/check-supervisor/${supervisorId}`);
   if (!res.ok) throw new Error("Failed to check PEC status");
   return res.json();
 };
 
 export const fetchIdeasApi = async (supervisorId) => {
-  const res = await fetch(`/api/ideas/supervisor/${supervisorId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/ideas/supervisor/${supervisorId}`);
   if (!res.ok) {
     const err = await res.json();
     throw new Error(err.message || "Failed to fetch ideas");
@@ -14,7 +14,7 @@ export const fetchIdeasApi = async (supervisorId) => {
 };
 
 export const postIdeaApi = async (supervisorId, title, description) => {
-  const res = await fetch(`/api/ideas/supervisor/${supervisorId}`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/ideas/supervisor/${supervisorId}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ title, description }),
@@ -27,13 +27,13 @@ export const postIdeaApi = async (supervisorId, title, description) => {
 };
 
 export const fetchChatMessagesApi = async (groupId) => {
-  const res = await fetch(`/api/chat/messages/${groupId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/chat/messages/${groupId}`);
   if (!res.ok) throw new Error("Failed to fetch chat history");
   return res.json();
 };
 
 export const sendChatMessageApi = async (data) => {
-  const res = await fetch("/api/chat/send", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/chat/send", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -43,14 +43,14 @@ export const sendChatMessageApi = async (data) => {
 };
 
 export const fetchRequestsApi = async (supervisorId) => {
-  const res = await fetch(`/api/supervisor/requests/${supervisorId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/supervisor/requests/${supervisorId}`);
   const text = await res.text();
   if (!res.ok) throw new Error(`Failed to load requests (${res.status}).`);
   return text ? JSON.parse(text) : [];
 };
 
 export const acceptRequestApi = async (requestId) => {
-  const res = await fetch(`/api/supervisor/accept-request/${requestId}`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/supervisor/accept-request/${requestId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
   });
@@ -64,7 +64,7 @@ export const acceptRequestApi = async (requestId) => {
 };
 
 export const rejectRequestApi = async (requestId) => {
-  const res = await fetch(`/api/supervisor/reject-request/${requestId}`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/supervisor/reject-request/${requestId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
   });
@@ -73,40 +73,40 @@ export const rejectRequestApi = async (requestId) => {
 };
 
 export const fetchGroupsApi = async (supervisorId) => {
-  const res = await fetch(`/api/groups/my-groups/${supervisorId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/groups/my-groups/${supervisorId}`);
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || "Failed to fetch groups.");
   return data;
 };
 
 export const fetchEvalGroupsApi = async (supervisorId) => {
-  const res = await fetch(`/api/groups/my-evaluation-groups/${supervisorId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/groups/my-evaluation-groups/${supervisorId}`);
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || "Failed to fetch evaluation groups.");
   return data;
 };
 
 export const fetchEvaluationFormApi = async (groupId) => {
-  const res = await fetch(`/api/evaluation/evaluation-form/${groupId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/evaluation/evaluation-form/${groupId}`);
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || "Failed to fetch evaluation form.");
   return data;
 };
 
 export const fetchPhaseStatusApi = async (groupId, phaseId) => {
-  const res = await fetch(`/api/evaluation/status/${groupId}/${phaseId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/evaluation/status/${groupId}/${phaseId}`);
   if (!res.ok) throw new Error("Failed to fetch phase status");
   return res.json();
 };
 
 export const fetchPhaseDocumentApi = async (groupId, phaseId) => {
-  const res = await fetch(`/api/evaluation/view-document/${groupId}/${phaseId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/evaluation/view-document/${groupId}/${phaseId}`);
   if (!res.ok) throw new Error("Failed to fetch phase document");
   return res.json();
 };
 
 export const fetchPhaseMarksApi = async (groupId, phaseId) => {
-  const res = await fetch(`/api/evaluation/marks/${groupId}/${phaseId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/evaluation/marks/${groupId}/${phaseId}`);
   if (!res.ok) throw new Error("Failed to fetch phase marks");
   return res.json();
 };
@@ -128,14 +128,14 @@ export const submitPhaseMarksApi = async (role, groupId, supervisorId, phaseId, 
 };
 
 export const fetchGroupRepoApi = async (groupId) => {
-  const res = await fetch(`/api/groups/repo/${groupId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/groups/repo/${groupId}`);
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.message || "No repository linked yet.");
   return data.repoUrl || data.repo_url || data.url || data.githubUrl || null;
 };
 
 export const updateGroupRepoApi = async (groupId, repoUrl) => {
-  const res = await fetch(`/api/groups/update-repo/${groupId}`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/groups/update-repo/${groupId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ repoUrl, githubUsernames: [] }),

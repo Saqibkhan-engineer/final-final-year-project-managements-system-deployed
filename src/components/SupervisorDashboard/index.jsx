@@ -36,7 +36,7 @@ import { EvaluationModalView } from "./views/EvaluationModalView";
 let socket = null;
 function getSocket() {
   if (!socket) {
-    socket = io("/", { transports: ["websocket", "polling"] });
+    socket = io(import.meta.env.VITE_API_URL || "/", { transports: ["websocket", "polling"] });
   }
   return socket;
 }

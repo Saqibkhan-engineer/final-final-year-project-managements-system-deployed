@@ -1,13 +1,13 @@
 // API service for Student Dashboard
 
 export const fetchChatMessagesApi = async (groupId) => {
-  const res = await fetch(`/api/chat/messages/${groupId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/chat/messages/${groupId}`);
   if (!res.ok) throw new Error('Failed to load chat history');
   return res.json();
 };
 
 export const sendChatMessageApi = async (data) => {
-  const res = await fetch('/api/chat/send', {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/chat/send', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
@@ -17,26 +17,26 @@ export const sendChatMessageApi = async (data) => {
 };
 
 export const fetchEvaluationPhasesApi = async (groupId) => {
-  const res = await fetch(`/api/evaluation/evaluation-form/${groupId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/evaluation/evaluation-form/${groupId}`);
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || 'Failed to fetch phases.');
   return data;
 };
 
 export const fetchViewDocumentApi = async (groupId, phaseId) => {
-  const res = await fetch(`/api/evaluation/view-document/${groupId}/${phaseId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/evaluation/view-document/${groupId}/${phaseId}`);
   if (!res.ok) throw new Error('Failed to fetch document');
   return res.json();
 };
 
 export const fetchMarksApi = async (groupId, phaseId) => {
-  const res = await fetch(`/api/evaluation/marks/${groupId}/${phaseId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/evaluation/marks/${groupId}/${phaseId}`);
   if (!res.ok) throw new Error('Failed to fetch marks');
   return res.json();
 };
 
 export const submitDocumentApi = async (groupId, phaseId, studentId, formData) => {
-  const res = await fetch(`/api/evaluation/submit-document/${groupId}/${phaseId}/${studentId}`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/evaluation/submit-document/${groupId}/${phaseId}/${studentId}`, {
     method: "POST",
     body: formData,
   });
@@ -48,7 +48,7 @@ export const submitDocumentApi = async (groupId, phaseId, studentId, formData) =
 };
 
 export const fetchStudentDashboardApi = async (studentId) => {
-  const res = await fetch(`/api/students/dashboard?studentId=${studentId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/students/dashboard?studentId=${studentId}`);
   if (!res.ok) throw new Error('Failed to fetch dashboard');
   return res.json();
 };
@@ -61,7 +61,7 @@ export const fetchSupervisorsApi = async (domain) => {
 };
 
 export const fetchMyCommitteeApi = async (studentId) => {
-  const res = await fetch(`/api/students/my-committee/${studentId}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/students/my-committee/${studentId}`);
   const text = await res.text();
   const data = text ? JSON.parse(text) : null;
   if (!res.ok) throw new Error(data?.message || 'Failed to fetch committee');
@@ -69,7 +69,7 @@ export const fetchMyCommitteeApi = async (studentId) => {
 };
 
 export const fetchAvailableIdeasApi = async () => {
-  const res = await fetch(`/api/ideas/students/available`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/ideas/students/available`);
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || "Failed to fetch ideas");
   return data;
@@ -85,7 +85,7 @@ export const searchStudentsApi = async (query) => {
 };
 
 export const sendSupervisorRequestApi = async (body) => {
-  const res = await fetch('/api/supervisor/send-supervisor-request', {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/supervisor/send-supervisor-request', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
@@ -98,7 +98,7 @@ export const sendSupervisorRequestApi = async (body) => {
 };
 
 export const checkSimilarityApi = async (formData) => {
-  const res = await fetch("/api/proposal/check-similarity", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/proposal/check-similarity", {
     method: "POST",
     body: formData,
   });
@@ -111,7 +111,7 @@ export const checkSimilarityApi = async (formData) => {
 };
 
 export const enhanceProposalApi = async (body) => {
-  const res = await fetch("/api/proposal/enhance", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/proposal/enhance", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -131,7 +131,7 @@ export const enhanceProposalApi = async (body) => {
 };
 
 export const submitToPecApi = async (body) => {
-  const res = await fetch("/api/pec/submit-to-pec", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/pec/submit-to-pec", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
