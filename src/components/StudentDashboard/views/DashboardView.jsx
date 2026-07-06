@@ -47,7 +47,7 @@ export function DashboardView({
               ? { background: '#22c55e', color: 'white' } 
               : {}
           }>
-            {(existingProposal?.supervisorName && existingProposal.supervisorName !== 'Not Assigned') || existingProposal?.supervisorStatus === 'accepted' ? '<Check className="inline-icon" size={18} />' : 'S'}
+            {(existingProposal?.supervisorName && existingProposal.supervisorName !== 'Not Assigned') || existingProposal?.supervisorStatus === 'accepted' ? <Check className="inline-icon" size={18} /> : 'S'}
           </div>
           <div className="stat-info">
             <p className="stat-label">Supervisor</p>

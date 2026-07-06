@@ -112,10 +112,11 @@ export const fetchPhaseMarksApi = async (groupId, phaseId) => {
 };
 
 export const submitPhaseMarksApi = async (role, groupId, supervisorId, phaseId, scoresArray) => {
+  const baseUrl = import.meta.env.VITE_API_URL || '';
   const endpoint =
     role === "supervisor"
-      ? `/api/evaluation/submit/supervisor/${groupId}/${supervisorId}/${phaseId}`
-      : `/api/evaluation/submit/committee/${groupId}/${supervisorId}/${phaseId}`;
+      ? `${baseUrl}/api/evaluation/submit/supervisor/${groupId}/${supervisorId}/${phaseId}`
+      : `${baseUrl}/api/evaluation/submit/committee/${groupId}/${supervisorId}/${phaseId}`;
 
   const res = await fetch(endpoint, {
     method: "POST",

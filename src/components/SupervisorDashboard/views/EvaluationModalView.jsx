@@ -335,12 +335,13 @@ export function EvaluationModalView({
                                   type="number"
                                   min="0"
                                   max={maxMarks}
-                                  value={rubricScores[rIdx] !== undefined ? rubricScores[rIdx] : ""}
+                                  value={rubricScores[rubric.id || rubric._id || rubric.rubricId || rIdx] !== undefined ? rubricScores[rubric.id || rubric._id || rubric.rubricId || rIdx] : ""}
                                   onChange={(e) => {
                                     let val = e.target.value;
                                     if (val !== "" && Number(val) > maxMarks) val = maxMarks;
                                     if (val !== "" && Number(val) < 0) val = 0;
-                                    setRubricScores((prev) => ({ ...prev, [rIdx]: val }));
+                                    const key = rubric.id || rubric._id || rubric.rubricId || rIdx;
+                                    setRubricScores((prev) => ({ ...prev, [key]: val }));
                                   }}
                                   style={{
                                     width: "70px",

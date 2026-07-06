@@ -467,9 +467,8 @@ export function SupervisorDashboard({ user, onLogout, originalRole, onSwitchRole
 
     const scoresArray = [];
     let isFirstValid = true;
-    for (const [rIdxStr, marks] of validEntries) {
-      const rIdx = Number(rIdxStr);
-      const rubric = rubrics[rIdx];
+    for (const [rKeyStr, marks] of validEntries) {
+      const rubric = rubrics.find((r, i) => String(r.id || r._id || r.rubricId || i) === String(rKeyStr));
       if (rubric) {
         const maxMarks = Number(rubric.maxMarks || rubric.marks || rubric.totalMarks || 100);
         if (Number(marks) > maxMarks || Number(marks) < 0) {

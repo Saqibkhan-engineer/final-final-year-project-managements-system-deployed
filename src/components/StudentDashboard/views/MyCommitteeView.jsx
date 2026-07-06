@@ -1,46 +1,63 @@
-import { RefreshCw, Building2 } from "lucide-react";
+import { RefreshCw, Building2, AlertCircle, Inbox, Users, Mail, User } from "lucide-react";
 import React from "react";
 
 export function MyCommitteeView({ fetchMyCommittee, committeeLoading, committeeError, myCommittee }) {
   return (
     <div className="dashboard-home">
       {/* Header */}
-      <div className="welcome-banner" style={{ marginBottom: '1.5rem' }}>
-        <h1 style={{ fontSize: '1.4rem' }}><Building2 className="inline-icon" size={18} /> My Evaluation Committee</h1>
-        <p>The committee assigned to evaluate your final year project</p>
+      <div className="welcome-banner" style={{ marginBottom: '1.5rem', padding: '1.5rem', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', color: '#1e293b' }}>
+        <h1 style={{ fontSize: '1.4rem', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: '0 0 0.5rem 0' }}>
+          <Building2 size={22} className="text-indigo-600" style={{ color: '#4f46e5' }} /> 
+          My Evaluation Committee
+        </h1>
+        <p style={{ margin: 0, color: '#64748b' }}>The committee assigned to evaluate your final year project.</p>
       </div>
 
       <button
         onClick={fetchMyCommittee}
         disabled={committeeLoading}
         style={{
-          marginBottom: '1.5rem', padding: '8px 20px',
-          background: 'linear-gradient(135deg,#6366f1,#8b5cf6)',
-          color: '#fff', border: 'none', borderRadius: '10px',
-          fontWeight: 600, fontSize: '0.85rem', cursor: committeeLoading ? 'not-allowed' : 'pointer',
+          marginBottom: '1.5rem', padding: '8px 16px',
+          background: '#fff', border: '1px solid #e2e8f0',
+          color: '#475569', borderRadius: '8px',
+          fontWeight: 500, fontSize: '0.85rem', cursor: committeeLoading ? 'not-allowed' : 'pointer',
           opacity: committeeLoading ? 0.7 : 1,
+          display: 'flex', alignItems: 'center', gap: '0.5rem',
+          boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+          transition: 'all 0.2s ease'
         }}
+        onMouseEnter={(e) => !committeeLoading && (e.currentTarget.style.background = '#f8fafc')}
+        onMouseLeave={(e) => !committeeLoading && (e.currentTarget.style.background = '#fff')}
       >
-        {committeeLoading ? '⏳ Loading...' : '<RefreshCw className="inline-icon" size={18} /> Refresh'}
+        {committeeLoading ? (
+          <>⏳ Loading...</>
+        ) : (
+          <><RefreshCw size={16} /> Refresh</>
+        )}
       </button>
 
       {/* Loading */}
       {committeeLoading && (
-        <div style={{ textAlign: 'center', padding: '3rem', color: '#6366f1' }}>
-          <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>⏳</div>
-          <p style={{ fontWeight: 600 }}>Fetching your committee...</p>
+        <div style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+            <RefreshCw size={32} className="animate-spin" />
+          </div>
+          <p style={{ fontWeight: 500 }}>Fetching your committee...</p>
         </div>
       )}
 
       {/* Error */}
       {committeeError && !committeeLoading && (
         <div style={{
-          background: '#fef2f2', border: '1px solid #fecaca',
-          borderRadius: '12px', padding: '2rem', textAlign: 'center', color: '#dc2626',
+          background: '#fff', border: '1px solid #fecaca',
+          borderRadius: '12px', padding: '2rem', textAlign: 'center', color: '#ef4444',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
         }}>
-          <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>?</div>
-          <p style={{ fontWeight: 600 }}>{committeeError}</p>
-          <p style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.5rem' }}>
+          <div style={{ marginBottom: '0.75rem', display: 'flex', justifyContent: 'center' }}>
+            <AlertCircle size={32} />
+          </div>
+          <p style={{ fontWeight: 500, margin: '0 0 0.5rem 0' }}>{committeeError}</p>
+          <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0 }}>
             Committee may not be assigned yet. Please check back later.
           </p>
         </div>
@@ -49,13 +66,15 @@ export function MyCommitteeView({ fetchMyCommittee, committeeLoading, committeeE
       {/* Not assigned */}
       {!committeeLoading && !committeeError && !myCommittee && (
         <div style={{
-          background: '#f8faff', border: '2px dashed #c7d2fe',
-          borderRadius: '16px', padding: '3rem', textAlign: 'center',
+          background: '#fff', border: '1px dashed #cbd5e1',
+          borderRadius: '12px', padding: '3rem', textAlign: 'center',
         }}>
-          <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>??</div>
-          <h3 style={{ color: '#4338ca', marginBottom: '0.5rem' }}>No Committee Assigned Yet</h3>
-          <p style={{ color: '#64748b', fontSize: '0.88rem' }}>
-            Your evaluation committee will be assigned after proposal approval.
+          <div style={{ marginBottom: '1rem', color: '#94a3b8', display: 'flex', justifyContent: 'center' }}>
+            <Inbox size={48} strokeWidth={1.5} />
+          </div>
+          <h3 style={{ color: '#334155', marginBottom: '0.5rem', fontWeight: 600 }}>No Committee Assigned Yet</h3>
+          <p style={{ color: '#64748b', fontSize: '0.9rem', margin: 0 }}>
+            Your evaluation committee will be assigned after your proposal is approved.
           </p>
         </div>
       )}
@@ -67,67 +86,78 @@ export function MyCommitteeView({ fetchMyCommittee, committeeLoading, committeeE
         return (
           <div>
             <div style={{
-              background: 'linear-gradient(135deg,#6366f1,#8b5cf6)',
-              borderRadius: '16px', padding: '1.25rem 1.5rem',
-              marginBottom: '1.5rem', color: '#fff',
+              background: '#fff',
+              border: '1px solid #e2e8f0',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+              borderRadius: '12px', padding: '1.5rem',
+              marginBottom: '1.5rem', color: '#1e293b',
               display: 'flex', alignItems: 'center', gap: '1rem',
             }}>
               <div style={{
-                width: '50px', height: '50px', borderRadius: '12px',
-                background: 'rgba(255,255,255,0.2)',
+                width: '48px', height: '48px', borderRadius: '10px',
+                background: '#f1f5f9', color: '#64748b',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '1.6rem',
-              }}>???</div>
+                flexShrink: 0
+              }}>
+                <Users size={24} />
+              </div>
               <div>
-                <h2 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 800 }}>
+                <h2 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 700, color: '#0f172a' }}>
                   {com.name || 'Evaluation Committee'}
                 </h2>
-                <p style={{ margin: '3px 0 0', fontSize: '0.78rem', opacity: 0.82 }}>
-                  {members.length} member{members.length !== 1 ? 's' : ''}  Assigned for your FYP evaluation
+                <p style={{ margin: '4px 0 0', fontSize: '0.85rem', color: '#64748b' }}>
+                  {members.length} member{members.length !== 1 ? 's' : ''} assigned for your FYP evaluation
                 </p>
               </div>
             </div>
 
-            <div className="section-card">
-              <h3 className="section-title">????? Committee Members</h3>
+            <div style={{ padding: '1.5rem', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+              <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.05rem', fontWeight: 600, color: '#0f172a', margin: '0 0 1.25rem 0' }}>
+                <User size={18} className="text-indigo-500" style={{ color: '#6366f1' }} /> 
+                Committee Members
+              </h3>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
                 gap: '1rem',
               }}>
                 {members.map((m, i) => {
                   const isProf = m.designation?.toLowerCase().includes('prof');
                   return (
                     <div key={i} style={{
-                      background: isProf ? '#f5f3ff' : '#f0f9ff',
-                      border: `1px solid ${isProf ? '#c4b5fd' : '#bae6fd'}`,
-                      borderRadius: '12px', padding: '1rem',
-                      display: 'flex', gap: '0.85rem', alignItems: 'flex-start',
-                    }}>
+                      background: '#fff',
+                      border: '1px solid #e2e8f0',
+                      borderLeft: `4px solid ${isProf ? '#8b5cf6' : '#3b82f6'}`,
+                      borderRadius: '8px', padding: '1.25rem',
+                      display: 'flex', gap: '1rem', alignItems: 'flex-start',
+                      transition: 'border-color 0.2s ease',
+                      boxShadow: '0 1px 2px rgba(0,0,0,0.02)'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#cbd5e1'}
+                    onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e2e8f0'}
+                    >
                       <div style={{
-                        width: '44px', height: '44px', borderRadius: '10px', flexShrink: 0,
-                        background: isProf
-                          ? 'linear-gradient(135deg,#6366f1,#8b5cf6)'
-                          : 'linear-gradient(135deg,#3b82f6,#06b6d4)',
+                        width: '40px', height: '40px', borderRadius: '50%', flexShrink: 0,
+                        background: '#f8fafc', border: '1px solid #e2e8f0',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: '#fff', fontSize: '1.1rem', fontWeight: 700,
+                        color: '#475569', fontSize: '1rem', fontWeight: 600,
                       }}>
                         {(m.user?.name || 'M').charAt(0).toUpperCase()}
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <p style={{ margin: 0, fontWeight: 700, fontSize: '0.92rem', color: '#1e293b' }}>
+                        <p style={{ margin: 0, fontWeight: 600, fontSize: '0.95rem', color: '#1e293b' }}>
                           {m.user?.name || `Member #${m.id}`}
                         </p>
                         <p style={{
-                          margin: '3px 0', fontSize: '0.72rem', fontWeight: 600,
+                          margin: '4px 0 0', fontSize: '0.8rem', fontWeight: 500,
                           textTransform: 'capitalize',
-                          color: isProf ? '#6366f1' : '#0ea5e9',
+                          color: isProf ? '#7c3aed' : '#2563eb',
                         }}>
                           {m.designation || 'Faculty Member'}
                         </p>
                         {m.user?.email && (
-                          <p style={{ margin: '3px 0 0', fontSize: '0.68rem', color: '#94a3b8' }}>
-                            ?? {m.user.email}
+                          <p style={{ margin: '8px 0 0', fontSize: '0.8rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <Mail size={14} /> {m.user.email}
                           </p>
                         )}
                       </div>

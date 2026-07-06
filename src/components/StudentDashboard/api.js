@@ -42,7 +42,7 @@ export const submitDocumentApi = async (groupId, phaseId, studentId, formData) =
   });
   const text = await res.text();
   let data = {};
-  try { data = JSON.parse(text); } catch (e) {}
+  try { data = JSON.parse(text); } catch (e) { }
   if (!res.ok) throw new Error(data.message || "Failed to submit document.");
   return data;
 };
@@ -54,7 +54,8 @@ export const fetchStudentDashboardApi = async (studentId) => {
 };
 
 export const fetchSupervisorsApi = async (domain) => {
-  const url = domain ? `/api/supervisor/all?domain=${encodeURIComponent(domain)}` : `/api/supervisor/all`;
+  const baseUrl = import.meta.env.VITE_API_URL || '';
+  const url = domain ? `${baseUrl}/api/supervisor/all?domain=${encodeURIComponent(domain)}` : `${baseUrl}/api/supervisor/all`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("Failed to load supervisors");
   return res.json();
@@ -76,9 +77,10 @@ export const fetchAvailableIdeasApi = async () => {
 };
 
 export const searchStudentsApi = async (query) => {
+  const baseUrl = import.meta.env.VITE_API_URL || '';
   const url = query.trim()
-    ? `/api/supervisor/students/search?name=${encodeURIComponent(query)}`
-    : `/api/supervisor/students/search`;
+    ? `${baseUrl}/api/supervisor/students/search?name=${encodeURIComponent(query)}`
+    : `${baseUrl}/api/supervisor/students/search`;
   const res = await fetch(url);
   if (!res.ok) throw new Error('Failed to search students');
   return res.json();
@@ -92,7 +94,7 @@ export const sendSupervisorRequestApi = async (body) => {
   });
   const text = await res.text();
   let data = {};
-  try { data = text ? JSON.parse(text) : {}; } catch (e) {}
+  try { data = text ? JSON.parse(text) : {}; } catch (e) { }
   if (!res.ok) throw new Error((data && data.message) || data.error || 'Failed to send request. ' + text);
   return data;
 };

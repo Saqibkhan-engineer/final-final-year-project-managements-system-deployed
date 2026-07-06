@@ -17,7 +17,8 @@ export const fetchRubricsApi = async (phaseId) => {
 };
 
 export const saveRubricApi = async (editingRubricId, body) => {
-  const url = editingRubricId ? `/api/evaluation/rubrics/${editingRubricId}` : '/api/evaluation/rubrics';
+  const baseUrl = import.meta.env.VITE_API_URL || '';
+  const url = editingRubricId ? `${baseUrl}/api/evaluation/rubrics/${editingRubricId}` : `${baseUrl}/api/evaluation/rubrics`;
   const method = editingRubricId ? 'PATCH' : 'POST';
   const res = await fetch(url, {
     method,
@@ -38,7 +39,8 @@ export const deleteRubricApi = async (id) => {
 };
 
 export const savePhaseApi = async (editingPhaseId, body) => {
-  const url = editingPhaseId ? `/api/evaluation/${editingPhaseId}` : '/api/evaluation/phases';
+  const baseUrl = import.meta.env.VITE_API_URL || '';
+  const url = editingPhaseId ? `${baseUrl}/api/evaluation/${editingPhaseId}` : `${baseUrl}/api/evaluation/phases`;
   const method = editingPhaseId ? 'PATCH' : 'POST';
   const res = await fetch(url, {
     method,
@@ -59,14 +61,16 @@ export const deletePhaseApi = async (id) => {
 };
 
 export const fetchSupervisorsApi = async (domain) => {
-  const url = domain ? `/api/supervisor/all?domain=${domain}` : '/api/supervisor/all';
+  const baseUrl = import.meta.env.VITE_API_URL || '';
+  const url = domain ? `${baseUrl}/api/supervisor/all?domain=${domain}` : `${baseUrl}/api/supervisor/all`;
   const res = await fetch(url);
   if (!res.ok) throw new Error('Failed to fetch supervisors');
   return res.json();
 };
 
 export const savePecCommitteeApi = async (editingCommitteeId, body) => {
-  const url = editingCommitteeId ? `/api/pec/update/${editingCommitteeId}` : '/api/pec/create';
+  const baseUrl = import.meta.env.VITE_API_URL || '';
+  const url = editingCommitteeId ? `${baseUrl}/api/pec/update/${editingCommitteeId}` : `${baseUrl}/api/pec/create`;
   const method = editingCommitteeId ? 'PATCH' : 'POST';
   const res = await fetch(url, {
     method,
